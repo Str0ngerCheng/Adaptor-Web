@@ -63,9 +63,9 @@ const menuList = [
       {"id":93,"parentId":31,"sort":0,"name":"测试1-2","href":"/test/1/2","icon":"fa fa-area-chart","children":[],"isShow":"1"}
     ]
     ,"isShow":"1"},
-  {"id":102,"parentId":null,"sort":3,"name":"测试2","href":"/test/2","icon":"fa fa-download","children":
+  {"id":102,"parentId":null,"sort":3,"name":"协议","href":"/protocol","icon":"fa fa-download","children":
     [
-      {"id":103,"parentId":102,"sort":0,"name":"测试2-1","href":"/test/2/1","icon":"fa fa-image","children":[],"isShow":"1"}
+      {"id":103,"parentId":102,"sort":0,"name":"ZigBee","href":"/protocol/zigbee","icon":"fa fa-image","children":[],"isShow":"1"}
     ]
     ,"isShow":"1"},
   {"id":6,"parentId":null,"sort":6,"name":"系统管理","href":"/sys","icon":"fa fa-cog","children":

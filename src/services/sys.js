@@ -80,3 +80,17 @@ export function userList (params) {
       })
   })
 }
+
+export function sensorList (params) {
+  const sensorList = {total:defaultValue.sensorList.total,records:defaultValue.sensorList.records}
+  return new Promise((resolve, reject) => {
+    axios.get(api.SYS_USER_PAGE, { params }).then(response => {
+      resolve(response.data);
+    }, err => {
+      resolve(sensorList);
+    })
+      .catch((error) => {
+        resolve(sensorList)
+      })
+  })
+}

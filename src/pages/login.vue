@@ -6,8 +6,8 @@
       <el-col :span="24" :xs="24" :sm="16" :md="16" :lg="16">
         <div class="login-form">
           <div class="card-block">
-            <h1>Vue-Admin</h1>
-            <p class="text-muted">任意用户名/密码登录</p>
+            <h1>SWE-Adaptor</h1>
+            <p class="text-muted">用户名/密码登录</p>
             <div class="input-group m-b-1">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
               <input type="text" class="form-control" placeholder="user name" v-model="form.username">
@@ -34,7 +34,7 @@
         <div class="login-register">
           <div class="card-block">
             <h2>注册</h2>
-            <p>平台暂时只支持使用公司邮箱注册.</p>
+            <p>平台暂时只支持使用内部邮箱注册.</p>
             <el-button type="info" class="btn btn-primary active m-t-1"> 马上注册</el-button>
           </div>
         </div>
@@ -51,6 +51,7 @@
   import  auth from '../common/auth'
   import * as sysApi from '../services/sys'
   import {mapGetters, mapActions, mapMutations} from 'vuex'
+  import axios from "../common/axios";
 
   export default {
     name: 'login',
@@ -75,7 +76,8 @@
         if (this.$route.query && this.$route.query != null && this.$route.query.redirect && this.$route.query.redirect != null) {
           redirectUrl = this.$route.query.redirect;
         }
-        sysApi.login(this.form).then(res => {
+        sysApi.login(JSON.stringify(this.form)).then(res => {
+          console.log(res)
           this.loginSuccess({...res,redirectUrl})
         })
       },

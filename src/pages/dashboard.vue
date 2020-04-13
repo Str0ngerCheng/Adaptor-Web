@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard" ref="dashboard">
+  <div class="dashboard">
     <el-row>
       <el-col :span="24">
         <div id="gotobedbar"></div>
@@ -160,8 +160,8 @@
       drawbar(id) {
         let o = document.getElementById(id);
         let height = document.documentElement.clientHeight;
-        height -= 120;
-        o.style.height= height+"px";
+        height =height*0.75 ;
+        /*o.style.height= height+"px";*/
         this.chart = echarts.init(o,'macarons');
         this.chart.setOption(option);
       }
@@ -195,7 +195,7 @@
 
   #gotobedbar {
     width: 100%;
-    min-height: 500px;
+    min-height: 350px;
     margin-right: 15px;
   }
 </style>

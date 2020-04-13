@@ -5,69 +5,101 @@
       <el-row style="width: 100%;">
         <el-col :span="12">
           <router-link :to="{ path: 'userAdd'}">
-            <el-button type="primary" icon="plus">新增</el-button>
+            <el-button type="primary" icon="el-icon-plus" size="medium">新增</el-button>
           </router-link>
         </el-col>
         <el-col :span="6" style="float: right">
-          <el-input type="text" placeholder="输入用户名称" v-model="searchKey" @keyup.enter="search($event)"
-                    prefix-icon="el-icon-search"/>
+            <el-input type="text" placeholder="输入传感器类型" v-model="searchKey" @keyup.enter="search($event)"
+                  prefix-icon="el-icon-search"/>
         </el-col>
       </el-row>
     </h3>
     <div slot="body">
       <el-table
         :data="tableData.rows"
-        border
         style="width: 100%"
+        :header-cell-style="{background:'#eef1f6',color:'#606266'}"
         v-loading="listLoading"
         @selection-change="handleSelectionChange">
         <!--checkbox 适当加宽，否则IE下面有省略号 https://github.com/ElemeFE/element/issues/1563-->
         <el-table-column
           prop="id"
           type="selection"
-          width="50">
+          width="50"
+          align='center'>
         </el-table-column>
         <el-table-column
-          label="照片" width="76">
+          label="传感器"
+          align='center'>
           <template slot-scope="scope">
             <img :src='scope.row.avatar' style="height: 35px;vertical-align: middle;" alt="">
           </template>
         </el-table-column>
         <el-table-column
           prop="name"
-          label="名称">
+          label="名称"
+          width="120"
+          align='center'>
         </el-table-column>
         <el-table-column
-          prop="nickName"
-          label="登录用户名">
+          prop="place"
+          label="位置"
+          width="120"
+          align='center'
+        >
         </el-table-column>
         <el-table-column
-          prop="email"
-          label="邮箱">
-        </el-table-column>
-        <el-table-column
-          label="状态">
+          prop="type"
+          label="类型"
+          :filters="[{ text: '温度', value: '温度' }, { text: '水位', value: '水位' }]"
+          :filter-method="filterTag"
+          filter-placement="bottom-end"
+          align='center'>
           <template slot-scope="scope">
-            {{ scope.row.status===1 ? '已激活' : '未激活' }}
+            <el-tag
+              type="primary"
+              disable-transitions>{{scope.row.type}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="285">
+        <el-table-column
+          prop="obs_value"
+          label="观测值"
+          align='center'>
+        </el-table-column>
+
+        <el-table-column
+          label="状态"
+          width="110"
+          align='center'>
+          <template slot-scope="scope">
+            <el-button size="small" :type="scope.row.status===1 ? 'success':'danger'">
+              {{ scope.row.status===1 ? "正常运行":'未运行'}}
+            </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="protocol_params"
+          label="协议参数"
+          align='center'>
+        </el-table-column>
+        <el-table-column label="操作" width="295" align='center'>
           <template slot-scope="scope">
             <el-button
               size="small"
               type="default"
-              icon="edit"
+              icon="el-icon-edit"
               @click="handleEdit(scope.$index, scope.row)">编辑
             </el-button>
             <el-button
               size="small"
-              type="info"
-              icon="setting"
-              @click="handleRoleConfig(scope.$index, scope.row)">配置角色
+              type="primary"
+              @click="handleRoleConfig(scope.$index, scope.row)">
+              <i class='fa fa-line-chart'> 历史数据</i>
             </el-button>
             <el-button
               size="small"
               type="danger"
+              icon="el-icon-delete"
               @click="handleDelete(scope.$index, scope.row)">删除
             </el-button>
           </template>
@@ -75,6 +107,7 @@
       </el-table>
 
       <el-pagination
+        background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="tableData.pagination.pageNo"
@@ -84,27 +117,8 @@
         :total="tableData.pagination.total">
       </el-pagination>
 
-      <el-dialog title="配置用户角色" :visible.sync="dialogVisible" size="tiny">
-        <div class="select-tree">
-          <el-scrollbar
-            tag="div"
-            class='is-empty'
-            wrap-class="el-select-dropdown__wrap"
-            view-class="el-select-dropdown__list">
-            <el-tree
-              ref="roleTree"
-              :data="roleTree"
-              show-checkbox
-              check-strictly
-              node-key="id" v-loading="dialogLoading"
-              :props="defaultProps">
-            </el-tree>
-          </el-scrollbar>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="configUserRoles">确 定</el-button>
-          </span>
+      <el-dialog title="传感器历史数据"  :visible.sync="dialogVisible" size="small">
+        <dashboard/>
       </el-dialog>
     </div>
 
@@ -117,10 +131,12 @@
   import * as api from "../../api"
   import testData from "../../../static/data/data.json"
   import * as sysApi from '../../services/sys'
+  import dashboard from '../../pages/dashboard.vue'
 
   export default {
     components: {
-      'imp-panel': panel
+      'imp-panel': panel,
+      'dashboard':dashboard
     },
     data(){
       return {
@@ -171,10 +187,10 @@
       },
       configUserRoles(){
         let checkedKeys = this.$refs.roleTree.getCheckedKeys();
-          this.$http.get(api.SYS_SET_USER_ROLE + "?userId=" + this.currentRow.id + "&roleIds="+checkedKeys.join(','))
+        this.$http.get(api.SYS_SET_USER_ROLE + "?userId=" + this.currentRow.id + "&roleIds="+checkedKeys.join(','))
           .then(res => {
-              this.$message('修改成功');
-              this.dialogVisible = false;
+            this.$message('修改成功');
+            this.dialogVisible = false;
           })
       },
       handleSizeChange(val) {
@@ -193,12 +209,15 @@
           this.loadData();
         });
       },
+      filterTag(value, row) {
+        return row.type === value;
+      },
       loadData(){
-          sysApi.userList({
-            key: this.searchKey,
-            pageSize: this.tableData.pagination.pageSize,
-            pageNo: this.tableData.pagination.pageNo
-          })
+        sysApi.sensorList({
+          key: this.searchKey,
+          pageSize: this.tableData.pagination.pageSize,
+          pageNo: this.tableData.pagination.pageNo
+        })
           .then(res => {
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
@@ -207,7 +226,8 @@
     },
     created(){
       this.loadData();
-    }
+    },
+
   }
 </script>
 <style>
