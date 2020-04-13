@@ -1,7 +1,8 @@
->友情链接：[**【react-admin】**](https://github.com/lanux/react-admin)持续更新 [演示地址](https://lanux.github.io/react-admin/)
 
-[演示地址](https://lanux.github.io/Vue-Admin/ "Vue-Admin")
+[原项目演示地址](https://lanux.github.io/Vue-Admin/ "Vue-Admin")
 >账号密码任意
+
+## 目前Element-UI版本：2.3.9
 
 ## Build Setup
 ``` bash
@@ -16,8 +17,8 @@ npm install
 #        include: [
 #          resolve('src'),
 #          resolve('test'),
-#          resolve('/node_modules/.1.4.8@element-ui/src'),
-#          resolve('/node_modules/.1.4.8@element-ui/packages'),
+#          resolve('/node_modules/.2.3.9@element-ui/src'),
+#          resolve('/node_modules/.2.3.9@element-ui/packages'),
 #          resolve('/node_modules/.4.3.0@vuex-router-sync')
 #        ]
 #      },
@@ -58,18 +59,4 @@ npm uninstall moudleName：卸载node模块
 
 ```
 
-## 页面截图
 
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/login.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/cmenu.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/dash.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/dash2.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/menu.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/menu2.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/menu5.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/resource.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/role.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/role4.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/user.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/user2.png?t=1" /></p>
-<p><img src="https://raw.githubusercontent.com/lanux/Vue-Admin/master/static/data/mobile.png?t=1" /></p>
