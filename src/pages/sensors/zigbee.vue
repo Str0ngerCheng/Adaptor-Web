@@ -9,8 +9,8 @@
           </router-link>
         </el-col>
         <el-col :span="6" style="float: right">
-            <el-input type="text" placeholder="输入传感器类型" v-model="searchKey" @keyup.enter="search($event)"
-                  prefix-icon="el-icon-search"/>
+          <el-input type="text" placeholder="输入传感器类型" v-model="searchKey" @keyup.enter="search($event)"
+                    prefix-icon="el-icon-search"/>
         </el-col>
       </el-row>
     </h3>
@@ -120,6 +120,45 @@
       <el-dialog title="传感器历史数据"  :visible.sync="dialogVisible" size="small">
         <dashboard/>
       </el-dialog>
+
+      <!--向组件传入数据,数据分别为options1 和options-->
+      <vSelect :options="options1" @my-event="select">  </vSelect>
+      <vSelect :options="options" @my-event="select"> </vSelect>
+
+      <!--excel ,需要先安装 npm install --save xlsx 和 npm install --save jquery-->
+      <!--excel示例在static里面-->
+      <inputExcel>
+        <!--limit:最大上传数，on-exceed：超过最大上传数量时的操作  -->
+        <el-upload
+          class="upload-demo"
+          action=""
+          :on-change="handleChange"
+          :on-remove="handleRemove"
+          :on-exceed="handleExceed"
+          :limit="limitUpload"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+          :auto-upload="false">
+          <el-button size="small" type="primary">点击上传</el-button>
+          <!-- <div slot="tip" class="el-upload__tip">只 能 上 传 xlsx / xls 文 件</div> -->
+        </el-upload>
+
+        <!-- 数据展示 -->
+        <el-main>
+          <el-table :data="da">
+            <el-table-column prop="code" label="编号">
+            </el-table-column>
+            <el-table-column prop="name" label="姓名">
+            </el-table-column>
+            <el-table-column prop="pro" label="省份">
+            </el-table-column>
+            <el-table-column prop="cit" label="城市">
+            </el-table-column>
+            <el-table-column prop="dis" label="区县">
+            </el-table-column>
+          </el-table>
+        </el-main>
+      </inputExcel>
+
     </div>
 
 
@@ -132,11 +171,15 @@
   import testData from "../../../static/data/data.json"
   import * as sysApi from '../../services/sys'
   import dashboard from '../../pages/dashboard.vue'
+  import inputExcel from  '../../components/excel.vue'
+  import vSelect from '../../components/vSelect.vue'
 
   export default {
     components: {
       'imp-panel': panel,
-      'dashboard':dashboard
+      'dashboard':dashboard,
+      'inputExcel':inputExcel,
+      'vSelect':vSelect
     },
     data(){
       return {
@@ -159,7 +202,23 @@
             parentId: 0
           },
           rows: []
-        }
+        },
+        options: [
+          {
+            value: 0,
+            label: '选项一'
+          },
+          {
+            value: 1,
+            label: '选项二'
+          },
+        ],
+        options1: [
+          {
+            value: 0,
+            label: '选项一'
+          },
+        ]
       }
     },
     methods: {
@@ -227,6 +286,9 @@
     created(){
       this.loadData();
     },
+    select(value) {
+      console.log(value)
+    }
 
   }
 </script>
