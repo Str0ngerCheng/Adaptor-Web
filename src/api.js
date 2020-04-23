@@ -5,13 +5,13 @@ export const LOGIN = CONTEXT + '/login';
 export const LOGOUT = CONTEXT + '/logout';
 export const CHANGE_PWD = CONTEXT + '/changePwd';
 
-export const ZIGBEE_LIST  = CONTEXT + '/zigbee/list';
-export const ZIGBEE_ADD = CONTEXT + '/zigbee/add';
-export const ZIGBEE_UPDATE = CONTEXT + '/zigbee/update';
-export const ZIGBEE_DELETE  = CONTEXT + '/zigbee/delete';
-export const ZIGBEE_GET_BY_NAME  = CONTEXT + '/zigbee/getSensorByName';
-export const ZIGBEE_GET_BY_TYPE  = CONTEXT + '/zigbee/getSensorsByType';
-export const ZIGBEE_HistoryData  = CONTEXT + '/zigbee/getHistoryData';
+export const SENSOR_LIST  = CONTEXT + '/sensor/list';
+export const SENSOR_ADD = CONTEXT + '/sensor/add';
+export const SENSOR_UPDATE = CONTEXT + '/sensor/update';
+export const SENSOR_DELETE  = CONTEXT + '/sensor/delete';
+export const SENSOR_GET_BY_NAME  = CONTEXT + '/sensor/getSensorsByName';
+export const SENSOR_GET_BY_TYPE  = CONTEXT + '/sensor/getSensorsByType';
+export const SENSOR_HistoryData  = CONTEXT + '/sensor/getHistoryData';
 
 export const SYS_MENU_GET = CONTEXT + '/sys/menu/get';
 export const SYS_MENU_UPDATE = CONTEXT + '/sys/menu/update';

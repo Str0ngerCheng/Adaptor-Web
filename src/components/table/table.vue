@@ -3,7 +3,7 @@
     <h3 class="box-title" slot="header" style="width: 100%;">
       <el-row style="width: 100%;">
         <el-col :span="12">
-          <router-link :to="{ name: 'sensorAdd', params: {url:this.addURL}}">
+          <router-link :to="{ name: 'sensorAdd', params: {protocol:this.protocol}}">
             <el-button type="primary" icon="el-icon-plus" size="medium">新增</el-button>
           </router-link>
         </el-col>
@@ -140,6 +140,7 @@
 <script>
   import panel from "../../components/panel.vue"
   import testData from "../../../static/data/data.json"
+  import * as api from "../../api"
   import * as protocolApi from '../../services/protocol'
   import line from '../charts/line.vue'
 
@@ -175,13 +176,7 @@
       }
     },
     props:{
-      loadURL:String,
-      addURL:String,
-      editURL:String,
-      deleteURL:String,
-      getByNameURL:String,
-      getByTypeURL:String,
-      getHistoryDataURL:String,
+     protocol:String
     },
     watch:{
       //清空输入框中的内容后显示所有列表数据
@@ -211,8 +206,8 @@
       },
       handleSelect(item) {
         let sensorName=item.value;
-        protocolApi.getSensorByName(this.getByNameURL,{sensorName:sensorName})
-          .then(res => {
+        protocolApi.getSensorsByName(api.SENSOR_GET_BY_NAME,{sensorName:sensorName
+        }).then(res => {
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
           });
@@ -231,8 +226,9 @@
       },
       handleHistoryData(index, row){
         this.dialogVisible = true;
-        protocolApi.getHistoryData(this.getHistoryDataURL,{
-          sensorName: row.name
+        protocolApi.getHistoryData(api.SENSOR_HistoryData,{
+          sensorName: row.name,
+          type:row.type
         }).then(res => {
           this.historyData=res
         },err=>{
@@ -242,10 +238,10 @@
       },
       handleEdit(index, row){
         //路由跳转，并传递参数
-        this.$router.push({name: 'sensorAdd', params: {...row,url:this.editURL},query:{id: row.id}})
+        this.$router.push({name: 'sensorAdd', params: {...row,protocol:this.protocol},query:{id: row.id}})
       },
       handleDelete(index, row){
-        protocolApi.deleteSensor(this.deleteURL,{
+        protocolApi.deleteSensor(api.SENSOR_DELETE,{
           sensorName: row.name
         }).then(res => {
             this.loadData();
@@ -258,15 +254,19 @@
         //重置时，aType为空
         if(filters.aType.length==0)
           this.loadData();
-        else protocolApi.getSensorsByType(this.getByTypeURL,{type:filters.aType})
-          .then(res => {
+        else protocolApi.getSensorsByType(api.SENSOR_GET_BY_TYPE,{
+          type:filters.aType,
+          protocol:this.protocol
+        }).then(res => {
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
           });
       },
       //加载列表数据
       loadData(){
-        protocolApi.getSensorList(this.loadURL)
+        protocolApi.getSensorList(api.SENSOR_LIST,{
+          protocol:this.protocol
+        })
           .then(res => {
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
