@@ -6,7 +6,7 @@
       <div class="content-wrapper" :class="{ slideCollapse: sidebar.collapsed,mobileSide:device.isMobile}">
         <el-scrollbar tag="div" wrapClass="content-scrollbar">
           <section class="content">
-            <el-breadcrumb separator="/" style="margin-bottom: 20px;">
+           <el-breadcrumb separator="/" style="margin-bottom: 15px;">
               <template v-for="child in currentMenus">
                 <el-breadcrumb-item :to="{ path: child.href }">{{child.name}}</el-breadcrumb-item>
               </template>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import sideMenu from './components/sideMenu.vue'
   import impHeader from "./pages/layout/header.vue"
   import impFooter from "./pages/layout/footer.vue"

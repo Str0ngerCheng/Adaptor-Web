@@ -9,13 +9,21 @@ import VueProgressBar from "vue-progressbar";
 import Element from "element-ui";
 import 'element-ui/lib/theme-chalk/index.css';
 import ImpPanel from "./components/panel.vue";
+import '../static/css/iconfont.css'
+import VueAMap from 'vue-amap';
 
 Vue.prototype.$http = axios
 Vue.axios = axios
 Vue.http = axios;
 Vue.use(axios);
-
 Vue.use(Element);
+
+Vue.use(VueAMap);
+VueAMap.initAMapApiLoader({
+  key: '8d552938b286df5704d2ced87767b73a',
+  plugin: ['AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType'],
+  uiVersion: '1.0'
+});
 
 Vue.component(ImpPanel.name, ImpPanel);
 

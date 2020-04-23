@@ -325,12 +325,29 @@ export default {
     }],
     total: 99
   },
+  sensorDemo:[{
+    "id": "340000198910193425",
+    "name": "zigbee_01",
+    "place": "36.01 102.62",
+    "type": "大气温度",
+    "obs_value": "25℃",
+    "protocol_params": "",
+    "isMale": false,
+    "email": "c.czieispd@cwp.gov.cn",
+    "createTime": "1978-05-22 08:53:07",
+    "delFlag": 0,
+    "status": 1,
+    "userType": "1",
+    "no": "340000198910193425",
+    "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+    "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+  }],
   sensorList: {
     records: [{
       "id": "340000198910193425",
       "name": "zigbee_01",
       "place": "36.01 102.62",
-      "type": "温度",
+      "type": "大气温度",
       "obs_value": "25℃",
       "protocol_params": "",
       "isMale": false,
@@ -348,7 +365,7 @@ export default {
         "name": "zigbee_02",
         "place": "36.01 102.62",
         "type": "水位",
-        "obs_value": "1mm",
+        "obs_value": "/",
         "protocol_params": "",
         "isMale": false,
         "email": "c.czieispd@cwp.gov.cn",
@@ -359,14 +376,171 @@ export default {
         "no": "340000198910193425",
         "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
         "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+      },
+      {
+        "id": "340000198910193427",
+        "name": "zigbee_03",
+        "place": "36.01 102.62",
+        "type": "大气湿度",
+        "obs_value": "20RH",
+        "protocol_params": "",
+        "isMale": true,
+        "email": "c.czieispd@cwp.gov.cn",
+        "createTime": "1978-05-22 08:53:07",
+        "delFlag": 0,
+        "status": 1,
+        "userType": "1",
+        "no": "340000198910193425",
+        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+      },
+      {
+        "id": "340000198910193428",
+        "name": "zigbee_05",
+        "place": "36.01 102.62",
+        "type": "大气湿度",
+        "obs_value": "22RH",
+        "protocol_params": "",
+        "isMale": true,
+        "email": "c.czieispd@cwp.gov.cn",
+        "createTime": "1978-05-22 08:53:07",
+        "delFlag": 0,
+        "status": 1,
+        "userType": "1",
+        "no": "340000198910193425",
+        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+      },
+      {
+        "id": "340000198910193429",
+        "name": "zigbee_09",
+        "place": "36.01 102.62",
+        "type": "水位",
+        "obs_value": "10mm",
+        "protocol_params": "",
+        "isMale": true,
+        "email": "c.czieispd@cwp.gov.cn",
+        "createTime": "1978-05-22 08:53:07",
+        "delFlag": 0,
+        "status": 1,
+        "userType": "1",
+        "no": "340000198910193425",
+        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+      },
+      {
+        "id": "340000198910193430",
+        "name": "zigbee_10",
+        "place": "36.01 102.62",
+        "type": "大气温度",
+        "obs_value": "21℃",
+        "protocol_params": "",
+        "isMale": true,
+        "email": "c.czieispd@cwp.gov.cn",
+        "createTime": "1978-05-22 08:53:07",
+        "delFlag": 0,
+        "status": 1,
+        "userType": "1",
+        "no": "340000198910193425",
+        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+      },
+      {
+        "id": "340000198910193431",
+        "name": "zigbee_11",
+        "place": "36.01 102.62",
+        "type": "大气温度",
+        "obs_value": "/",
+        "protocol_params": "",
+        "isMale": false,
+        "email": "c.czieispd@cwp.gov.cn",
+        "createTime": "1978-05-22 08:53:07",
+        "delFlag": 0,
+        "status": 0,
+        "userType": "1",
+        "no": "340000198910193425",
+        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+      },
+      {
+        "id": "340000198910193432",
+        "name": "zigbee_12",
+        "place": "36.01 102.62",
+        "type": "大气湿度",
+        "obs_value": "21RH",
+        "protocol_params": "",
+        "isMale": true,
+        "email": "c.czieispd@cwp.gov.cn",
+        "createTime": "1978-05-22 08:53:07",
+        "delFlag": 0,
+        "status": 1,
+        "userType": "1",
+        "no": "340000198910193425",
+        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+      },
+      {
+        "id": "340000198910193433",
+        "name": "zigbee_14",
+        "place": "36.01 102.62",
+        "type": "大气湿度",
+        "obs_value": "30RH",
+        "protocol_params": "",
+        "isMale": true,
+        "email": "c.czieispd@cwp.gov.cn",
+        "createTime": "1978-05-22 08:53:07",
+        "delFlag": 0,
+        "status": 1,
+        "userType": "1",
+        "no": "340000198910193425",
+        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
       }],
     total: 99
   },
+  typeData:[
+    { text: '大气温度', value: '大气温度' },
+    { text: '水位', value: '水位' }
+  ],
+  historyData:[
+    {
+      type:'土壤温度',
+      data:function () {
+        let list = [];
+        for (let i = 1; i <= 30; i++) {
+          list.push(Math.round(Math.random() * 10));
+        }
+        return list;
+      }()
+    },
+    {
+      type:'土壤湿度',
+      data:function () {
+        let list = [];
+        for (let i = 1; i <= 30; i++) {
+          list.push(Math.round(Math.random() * 10));
+        }
+        return list;
+      }()
+    }
+  ],
+  historyData1:[
+    {
+      type:'土壤温度',
+      data:function () {
+        let list = [];
+        for (let i = 1; i <= 30; i++) {
+          list.push(Math.round(Math.random() * 10));
+        }
+        return list;
+      }()
+    },
+  ],
   menuList:[{
     "id": 1,
     "parentId": null,
     "sort": 0,
-    "name": "仪表盘",
+    "name": "首页",
     "href": "/index",
     "icon": "fa fa-dashboard",
     "children": [],
@@ -433,6 +607,14 @@ export default {
       "children": [],
       "isShow": "1"
     }],
+    "isShow": "1"
+  }, {
+    "id": 104,
+    "parentId": null,
+    "sort": 3,
+    "name": "架构",
+    "href": "/tree",
+    "icon": "fa fa-skyatlas",
     "isShow": "1"
   }, {
     "id": 6,
