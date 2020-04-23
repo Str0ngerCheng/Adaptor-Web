@@ -3,6 +3,7 @@
             :add-u-r-l="addURL"
             :edit-u-r-l="editURL"
             :delete-u-r-l="deleteURL"
+            :get-by-name-u-r-l="getByNameURL"
             :get-by-type-u-r-l="getByTypeURL"
             :get-history-data-u-r-l="getHistoryDataURL"/>
 </template>
@@ -20,6 +21,7 @@
         addURL:api.ZIGBEE_ADD,
         editURL:api.ZIGBEE_UPDATE,
         deleteURL:api.ZIGBEE_DELETE,
+        getByNameURL:api.ZIGBEE_GET_BY_NAME,
         getByTypeURL:api.ZIGBEE_GET_BY_TYPE,
         getHistoryDataURL:api.ZIGBEE_HistoryData
       }

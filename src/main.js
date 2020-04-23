@@ -9,7 +9,6 @@ import VueProgressBar from "vue-progressbar";
 import Element from "element-ui";
 import 'element-ui/lib/theme-chalk/index.css';
 import ImpPanel from "./components/panel.vue";
-import '../static/css/iconfont.css'
 import VueAMap from 'vue-amap';
 
 Vue.prototype.$http = axios

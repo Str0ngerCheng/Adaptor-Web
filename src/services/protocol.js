@@ -1,6 +1,8 @@
 import defaultValue from "./default";
 import axios from "../common/axios";
 
+//前端模拟接口，最终还是调用后端接口。
+//注意：这些接口中，凡是给出demo数据的，后端接口返回的数据格式要和demo一致，不然无法解析
 export function getSensorList (url) {
   const sensorList = {total:defaultValue.sensorList.total,records:defaultValue.sensorList.records,
     sensorType:defaultValue.typeData}
@@ -15,7 +17,20 @@ export function getSensorList (url) {
       })
   })
 }
-
+export function getSensorByName (url,params) {
+  const sensor={total:0,records:[]}
+  return new Promise((resolve, reject) => {
+    axios.get(url,{params}).then(response => {
+      resolve(response.data)
+    }, err => {
+      resolve(sensor)
+    })
+      .catch((error) => {
+        resolve(sensor)
+      })
+  })
+}
+//Type这里是一个数组，即 select * from sensor where type in （type1,type2,...）
 export function getSensorsByType (url,params) {
   const sensor={total:0,records:[]}
   return new Promise((resolve, reject) => {

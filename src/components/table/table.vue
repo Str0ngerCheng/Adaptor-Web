@@ -150,7 +150,6 @@
     },
     data(){
       return {
-        globalRows:[],
         dialogVisible: false,
         dialogLoading: false,
         defaultProps: {
@@ -180,15 +179,17 @@
       addURL:String,
       editURL:String,
       deleteURL:String,
+      getByNameURL:String,
       getByTypeURL:String,
       getHistoryDataURL:String,
     },
     watch:{
+      //清空输入框中的内容后显示所有列表数据
+      //searchSelected用来防止初始时(此时输入框为空)调用loadData()
       searchKey: {
         handler(newValue, oldValue) {
           if(newValue==''&&this.searchSelected){
-            this.tableData.rows = this.globalRows;
-            this.tableData.pagination.total = this.globalRows.length;
+            this.loadData();
             this.searchSelected=false
           }
         }
@@ -197,8 +198,8 @@
     methods: {
       querySearch(queryString, cb) {
         let  rows = []
-        for(let i=0;i<this.globalRows.length;i++){
-          rows.push({value:this.globalRows[i].name,index:i})
+        for(let i=0;i<this.tableData.rows.length;i++){
+          rows.push({value:this.tableData.rows[i].name})
         }
         let  results = queryString ? rows.filter(this.createFilter(queryString)) : rows;
         cb(results);
@@ -209,25 +210,27 @@
         };
       },
       handleSelect(item) {
-        this.tableData.rows = [this.globalRows[item.index]];
-        this.tableData.pagination.total = 1;
-        this.searchSelected=true;
+        let sensorName=item.value;
+        protocolApi.getSensorByName(this.getByNameURL,{sensorName:sensorName})
+          .then(res => {
+            this.tableData.rows = res.records;
+            this.tableData.pagination.total = res.total;
+          });
+        this.searchSelected=true
       },
 
+      //将historyData置为空，此时图表会再次刷新，避免影响获取其他历史数据的绘制
       handleDialogClose(){
         this.historyData=[]
       },
       handleSizeChange(val) {
         this.tableData.pagination.pageSize = val;
-        this.loadData();
       },
       handleCurrentChange(val) {
         this.tableData.pagination.pageNo = val;
-        this.loadData();
       },
       handleHistoryData(index, row){
         this.dialogVisible = true;
-        //this.historyData= defaultValue.historyData
         protocolApi.getHistoryData(this.getHistoryDataURL,{
           sensorName: row.name
         }).then(res => {
@@ -238,6 +241,7 @@
 
       },
       handleEdit(index, row){
+        //路由跳转，并传递参数
         this.$router.push({name: 'sensorAdd', params: {...row,url:this.editURL},query:{id: row.id}})
       },
       handleDelete(index, row){
@@ -250,6 +254,8 @@
         });
       },
       filterTag(filters) {
+        //aType此处是数组，前端类型可以选择多个，以此来筛选传感器
+        //重置时，aType为空
         if(filters.aType.length==0)
           this.loadData();
         else protocolApi.getSensorsByType(this.getByTypeURL,{type:filters.aType})
@@ -258,10 +264,10 @@
             this.tableData.pagination.total = res.total;
           });
       },
+      //加载列表数据
       loadData(){
         protocolApi.getSensorList(this.loadURL)
           .then(res => {
-            this.globalRows= res.records;
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
             this.typeData=res.sensorType

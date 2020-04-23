@@ -9,6 +9,7 @@ export const ZIGBEE_LIST  = CONTEXT + '/zigbee/list';
 export const ZIGBEE_ADD = CONTEXT + '/zigbee/add';
 export const ZIGBEE_UPDATE = CONTEXT + '/zigbee/update';
 export const ZIGBEE_DELETE  = CONTEXT + '/zigbee/delete';
+export const ZIGBEE_GET_BY_NAME  = CONTEXT + '/zigbee/getSensorByName';
 export const ZIGBEE_GET_BY_TYPE  = CONTEXT + '/zigbee/getSensorsByType';
 export const ZIGBEE_HistoryData  = CONTEXT + '/zigbee/getHistoryData';
 
