@@ -328,9 +328,9 @@ export default {
   sensorDemo:[{
     "id": "340000198910193425",
     "name": "zigbee_01",
-    "place": "36.01 102.62",
+    "location": "36.01 102.62",
     "type": "大气温度",
-    "obs_value": "25℃",
+    "obs_value": "20RH",
     "protocol_params": "",
     "isMale": false,
     "email": "c.czieispd@cwp.gov.cn",
@@ -345,9 +345,9 @@ export default {
   sensorList: {
     records: [{
       "id": "340000198910193425",
-      "name": "zigbee_01",
-      "place": "36.01 102.62",
-      "type": "大气温度",
+      "name": "ZigBee-001",
+      "location": "36.01 102.62",
+      "type": "土壤湿度",
       "obs_value": "25℃",
       "protocol_params": "",
       "isMale": false,
@@ -361,30 +361,13 @@ export default {
       "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
     },
       {
-        "id": "340000198910193426",
-        "name": "zigbee_02",
-        "place": "36.01 102.62",
-        "type": "水位",
-        "obs_value": "/",
+        "id": "340000198910193425",
+        "name": "ZigBee-001",
+        "location": "36.01 102.62",
+        "type": "土壤温度",
+        "obs_value": "25RH",
         "protocol_params": "",
         "isMale": false,
-        "email": "c.czieispd@cwp.gov.cn",
-        "createTime": "1978-05-22 08:53:07",
-        "delFlag": 0,
-        "status": 0,
-        "userType": "1",
-        "no": "340000198910193425",
-        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
-        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
-      },
-      {
-        "id": "340000198910193427",
-        "name": "zigbee_03",
-        "place": "36.01 102.62",
-        "type": "大气湿度",
-        "obs_value": "20RH",
-        "protocol_params": "",
-        "isMale": true,
         "email": "c.czieispd@cwp.gov.cn",
         "createTime": "1978-05-22 08:53:07",
         "delFlag": 0,
@@ -395,9 +378,26 @@ export default {
         "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
       },
       {
+        "id": "340000198910193427",
+        "name": "zigbee_03",
+        "location": "36.01 102.62",
+        "type": "大气湿度",
+        "obs_value": "20RH",
+        "protocol_params": "",
+        "isMale": true,
+        "email": "c.czieispd@cwp.gov.cn",
+        "createTime": "1978-05-22 08:53:07",
+        "delFlag": 0,
+        "status": 0,
+        "userType": "1",
+        "no": "340000198910193425",
+        "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
+        "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
+      },
+      {
         "id": "340000198910193428",
         "name": "zigbee_05",
-        "place": "36.01 102.62",
+        "location": "36.01 102.62",
         "type": "大气湿度",
         "obs_value": "22RH",
         "protocol_params": "",
@@ -414,7 +414,7 @@ export default {
       {
         "id": "340000198910193429",
         "name": "zigbee_09",
-        "place": "36.01 102.62",
+        "location": "36.01 102.62",
         "type": "水位",
         "obs_value": "10mm",
         "protocol_params": "",
@@ -431,7 +431,7 @@ export default {
       {
         "id": "340000198910193430",
         "name": "zigbee_10",
-        "place": "36.01 102.62",
+        "location": "36.01 102.62",
         "type": "大气温度",
         "obs_value": "21℃",
         "protocol_params": "",
@@ -448,7 +448,7 @@ export default {
       {
         "id": "340000198910193431",
         "name": "zigbee_11",
-        "place": "36.01 102.62",
+        "location": "36.01 102.62",
         "type": "大气温度",
         "obs_value": "/",
         "protocol_params": "",
@@ -465,7 +465,7 @@ export default {
       {
         "id": "340000198910193432",
         "name": "zigbee_12",
-        "place": "36.01 102.62",
+        "location": "36.01 102.62",
         "type": "大气湿度",
         "obs_value": "21RH",
         "protocol_params": "",
@@ -482,7 +482,7 @@ export default {
       {
         "id": "340000198910193433",
         "name": "zigbee_14",
-        "place": "36.01 102.62",
+        "location": "36.01 102.62",
         "type": "大气湿度",
         "obs_value": "30RH",
         "protocol_params": "",
@@ -499,8 +499,8 @@ export default {
     total: 99
   },
   typeData:[
-    { text: '大气温度', value: '大气温度' },
-    { text: '水位', value: '水位' }
+    { text: '土壤湿度', value: '土壤湿度' },
+    { text: '土壤温度', value: '土壤温度' }
   ],
   historyData:[
     {

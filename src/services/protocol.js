@@ -18,29 +18,28 @@ export function getSensorList (url,params) {
   })
 }
 export function getSensorsByName (url,params) {
-  const sensor={total:0,records:[]}
   return new Promise((resolve, reject) => {
     axios.get(url,{params}).then(response => {
-      resolve(response.data)
+      resolve({total:response.data.length,records:response.data})
     }, err => {
-      resolve(sensor)
+      reject(err)
     })
       .catch((error) => {
-        resolve(sensor)
+        reject(error)
       })
   })
 }
 //Type这里是一个数组，即 select * from sensor where type in （type1,type2,...）
 export function getSensorsByType (url,params) {
-  const sensor={total:0,records:[]}
+
   return new Promise((resolve, reject) => {
     axios.get(url,{params}).then(response => {
-      resolve(response.data)
+      resolve({total:response.data.length,records:response.data})
     }, err => {
-      resolve(sensor)
+      reject(err)
     })
       .catch((error) => {
-        resolve(sensor)
+        reject(error)
       })
   })
 }
@@ -83,10 +82,10 @@ export function getHistoryData (url,params) {
     axios.get(url, { params }).then(response => {
       resolve(response.data)
     }, err => {
-      resolve(historyData)
+      reject(err)
     })
       .catch((error) => {
-        resolve(historyData)
+        reject(error)
       })
   })
 }

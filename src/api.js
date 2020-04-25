@@ -1,5 +1,5 @@
 // export const CONTEXT = './api';
-export const CONTEXT = './SWEAdaptor-Admin';
+export const CONTEXT = '.';
 
 export const LOGIN = CONTEXT + '/login';
 export const LOGOUT = CONTEXT + '/logout';

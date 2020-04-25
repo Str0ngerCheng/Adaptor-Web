@@ -10,7 +10,7 @@
     },
     data(){
       return {
-        protocol:'zigbee'
+        protocol:'ZigBee'
       }
     }
   }

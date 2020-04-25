@@ -50,7 +50,7 @@
           align='center'>
         </el-table-column>
         <el-table-column
-          prop="place"
+          prop="location"
           label="位置"
           width="120"
           align='center'
@@ -171,7 +171,7 @@
           rows: []
         },
         typeData:[],
-        historyData:[]
+        historyData:{}
 
       }
     },
@@ -196,6 +196,8 @@
         for(let i=0;i<this.tableData.rows.length;i++){
           rows.push({value:this.tableData.rows[i].name})
         }
+        let res = new Map();
+        rows=rows.filter((row) => !res.has(row.value) && res.set(row.value, 1));//rows去重
         let  results = queryString ? rows.filter(this.createFilter(queryString)) : rows;
         cb(results);
       },
@@ -216,7 +218,7 @@
 
       //将historyData置为空，此时图表会再次刷新，避免影响获取其他历史数据的绘制
       handleDialogClose(){
-        this.historyData=[]
+        this.historyData={}
       },
       handleSizeChange(val) {
         this.tableData.pagination.pageSize = val;
@@ -258,6 +260,7 @@
           type:filters.aType,
           protocol:this.protocol
         }).then(res => {
+
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
           });

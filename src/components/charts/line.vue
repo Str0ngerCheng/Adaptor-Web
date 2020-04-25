@@ -21,9 +21,9 @@
     },
     props:{
       historyData:{
-        type: Array,
+        type: Object,
         default () {
-          return []
+          return {}
         }
       },
     },
@@ -60,21 +60,44 @@
       historyData: {
         handler(newValue, oldValue) {
           let series=[]
+          let data8=[]
+          let data16=[]
           let legendData=[]
-          for (let i = 0; i < newValue.length; i++) {
+          let yAxis=[]
+          if(JSON.stringify(newValue)!= "{}") {
+            let observations = newValue.observations
+            for (let i = 0; i < observations.length; i++) {
+              if (observations[i].hour == 8)
+                data8.push(observations[i].obsValue)
+              else data16.push(observations[i].obsValue)
+            }
             series.push({
-                name: newValue[i].type,
+                name: "8:00",
                 type: 'line',
                 tiled: '总量',
                 areaStyle: {normal: {}},
-                data: newValue[i].data
+                data: data8
               },
             )
-            legendData.push(newValue[i].type)
+            series.push({
+                name: "18:00",
+                type: 'line',
+                tiled: '总量',
+                areaStyle: {normal: {}},
+                data: data16
+              },
+            )
+            yAxis.push({type:"value",
+              axisLabel:{
+                formatter:"{value} "+newValue.uom
+              }})
+            legendData.push("8:00","18:00")
+            option.series=series
+            option.legend.data=legendData
+            option.title.text=newValue.sensorType+"数据月统计"
+            option.yAxis=yAxis
+            this.drawbar('gotobedbar')
           }
-          option.series=series
-          option.legend.data=legendData
-          this.drawbar('gotobedbar')
         },
         deep: true
       },
@@ -88,23 +111,23 @@
     }
   }
   const getBeforeDate = (n) => {
-    var list = [];
-    var d = new Date(); // 这个算法能自动处理闰年和非闰年。2012年是闰年，所以2月有29号
-    var s = '';
-    var i = 0;
+    let list = [];
+    let d = new Date(); // 这个算法能自动处理闰年和非闰年。2012年是闰年，所以2月有29号
+    let s = '';
+    let i = 0;
     while (i < n) {
       d.setDate(d.getDate() - 1);
-      var year = d.getFullYear();
-      var mon = d.getMonth() + 1;
-      var day = d.getDate();
-      list.push(year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day));
+      let year = d.getFullYear();
+      let mon = d.getMonth() + 1;
+      let day = d.getDate();
+      let date=year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);
+      list.push(date);
       i++;
     }
     return list.reverse();
   }
   const option = {
     title: {
-      text: '每月数据统计',
       subtext: '从当天开始往前',
       left:'center',
     },
@@ -156,7 +179,10 @@
     ],
     yAxis: [
       {
-        type: 'value'
+        type: 'value',
+        axisLabel:{
+          formatter:{}
+        }
       }
     ],
     series:[]

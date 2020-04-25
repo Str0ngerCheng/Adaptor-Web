@@ -102,8 +102,8 @@
           this.form.name = this.$route.params.name;
           this.form.type = this.$route.params.type;
           this.form.status = this.$route.params.status;
-          this.form.longitude= this.$route.params.place.split(' ')[0];
-          this.form.latitude= this.$route.params.place.split(' ')[1];
+          this.form.longitude= this.$route.params.location.split(' ')[0];
+          this.form.latitude= this.$route.params.location.split(' ')[1];
         }
       }
     },
