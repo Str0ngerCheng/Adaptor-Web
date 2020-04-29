@@ -253,7 +253,6 @@
       filterTag(filters) {
         //aType此处是数组，前端类型可以选择多个，以此来筛选传感器
         //重置时，aType为空
-        debugger
         if(filters.aType.length==0)
           this.loadData();
         else protocolApi.getSensorsByType(api.SENSOR_GET_BY_TYPE,{
@@ -272,7 +271,7 @@
           .then(res => {
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
-            this.typeData= defaultValue.typeData
+            this.typeData= res.typeData
           });
       }
     },

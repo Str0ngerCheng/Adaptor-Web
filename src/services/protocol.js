@@ -4,11 +4,14 @@ import axios from "../common/axios";
 //前端模拟接口，最终还是调用后端接口。
 //注意：这些接口中，凡是给出demo数据的，后端接口返回的数据格式要和demo一致，不然无法解析
 export function getSensorList (url,params) {
-  /*const sensorList = {total:defaultValue.sensorList.total,records:defaultValue.sensorList.records,
-    sensorType:defaultValue.typeData}*/
+  let typeData=[]
   return new Promise((resolve, reject) => {
     axios.get(url,{params}).then(response => {
-      resolve({total:response.data.length,records:response.data})
+      for(let i=0;i<response.data.length;i++)
+        typeData.push({ text: response.data[i].type, value: response.data[i].type})
+      let res = new Map();
+      typeData=typeData.filter((data) => !res.has(data.text) && res.set(data.text, 1));//typeData去重
+      resolve({total:response.data.length,records:response.data,typeData:typeData})
     }, err => {
       resolve(err)
     })
@@ -78,7 +81,6 @@ export function deleteSensor (url,params) {
   })
 }
 export function getHistoryData (url,params) {
-  const historyData = defaultValue.historyData
   return new Promise((resolve, reject) => {
     axios.get(url, { params }).then(response => {
       resolve(response.data)
@@ -91,43 +93,19 @@ export function getHistoryData (url,params) {
   })
 }
 
-//得到传感器的所有属性
-/*
-export function list(url,params) {
-  const sensorProperty={total:0,records:[]}
+export function getAllObsPropNames (url) {
+  let typeOptions=[]
   return new Promise((resolve, reject) => {
-    axios.get(url, { params }).then(response => {
-      resolve(response.data)
+    axios.get(url).then(response => {
+      let data=response.data.data
+      for(let i=0;i<data.length;i++)
+        typeOptions.push({ value: data[i], label: data[i]})
+      resolve(typeOptions)
     }, err => {
-      resolve(sensorProperty)
-    })
-      .catch((error) => {
-        resolve(sensorProperty)
+      reject(err)
+    }).catch((error) => {
+        reject(error)
       })
   })
 }
-
-export function add(url,params) {
-  return new Promise((resolve, reject) => {
-    axios.post(url, { params }).then(response => {
-      resolve(response.data)
-    })
-      .catch((error) => {
-        resolve(error)
-      })
-  })
-}
-
-export function update(url,params) {
-  return new Promise((resolve, reject) => {
-    axios.post(url, { params }).then(response => {
-      resolve(response.data)
-    })
-      .catch((error) => {
-        resolve(error)
-      })
-  })
-}
-
-*/
 

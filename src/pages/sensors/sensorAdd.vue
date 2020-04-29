@@ -1,8 +1,8 @@
 <template>
   <imp-panel :title="form.id ? '编辑':'新增传感器'">
-    <el-form ref="form" :model="form" label-width="180px">
+    <el-form ref="form" :model="form" label-width="180px" style="padding-right: 180px">
       <el-form-item label="名称">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.name"  :disabled="form.id ? true:false"></el-input>
       </el-form-item>
       <el-form-item label="经度">
         <el-input v-model="form.longitude"></el-input>
@@ -11,7 +11,14 @@
         <el-input v-model="form.latitude"></el-input>
       </el-form-item>
       <el-form-item label="类型">
-        <el-input v-model="form.type"></el-input>
+        <el-select v-model="form.type" filterable placeholder="请选择" :disabled="form.id ? true:false">
+          <el-option
+            v-for="item in typeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="状态">
         <el-radio-group v-model="form.status">
@@ -23,7 +30,7 @@
         <el-input type="textarea" v-model="form.description"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="info" @click="onEditSubmit" v-if="form.id">保存</el-button>
+        <el-button type="primary" @click="onEditSubmit" v-if="form.id">保存</el-button>
         <el-button type="primary" @click="onSubmit" v-else>立即创建</el-button>
       </el-form-item>
     </el-form>
@@ -41,6 +48,7 @@
     },
     data(){
       return {
+        typeOptions:[],
         form: {
           id: null,
           name: '',
@@ -61,7 +69,6 @@
     },
     methods: {
       onSubmit(){
-        debugger
         protocolApi.addSensor(api.SENSOR_ADD,{
           ...this.form,
           location:this.form.longitude+' '+this.form.latitude,
@@ -99,7 +106,10 @@
         })
       },
       loadData(){
-        console.log(this.$route.params)
+        protocolApi.getAllObsPropNames(api.ObsProp_All_ObsPropName)
+          .then(res => {
+            this.typeOptions = res;
+          });
         if (this.$route.params && this.$route.params != null && this.$route.params.id && this.$route.params.id != null) {
           this.form.id = this.$route.params.id;
           this.form.name = this.$route.params.name;

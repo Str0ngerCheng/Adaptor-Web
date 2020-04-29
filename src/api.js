@@ -12,6 +12,7 @@ export const SENSOR_DELETE  = CONTEXT + '/sensor/Delete';
 export const SENSOR_GET_BY_NAME  = CONTEXT + '/sensor/getSensorsByName';
 export const SENSOR_GET_BY_TYPE  = CONTEXT + '/sensor/getSensorsByType';
 export const SENSOR_HistoryData  = CONTEXT + '/sensor/getHistoryData';
+export const ObsProp_All_ObsPropName  = CONTEXT + '/obs_prop/getAllObsPropNames';
 
 export const SYS_MENU_GET = CONTEXT + '/sys/menu/get';
 export const SYS_MENU_UPDATE = CONTEXT + '/sys/menu/update';
