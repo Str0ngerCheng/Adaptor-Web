@@ -65,7 +65,8 @@ const menuList = [
     ,"isShow":"1"},
   {"id":102,"parentId":null,"sort":3,"name":"协议","href":"/protocol","icon":"fa fa-download","children":
     [
-      {"id":103,"parentId":102,"sort":0,"name":"ZigBee","href":"/protocol/zigbee","icon":"fa fa-image","children":[],"isShow":"1"}
+      {"id":103,"parentId":102,"sort":0,"name":"ZigBee","href":"/protocol/zigbee","icon":"fa fa-image","children":[],"isShow":"1"},
+      {"id":104,"parentId":102,"sort":0,"name":"BLE","href":"/protocol/BLE","icon":"fa fa-image","children":[],"isShow":"1"}
     ]
     ,"isShow":"1"},
   {"id":6,"parentId":null,"sort":6,"name":"系统管理","href":"/sys","icon":"fa fa-cog","children":

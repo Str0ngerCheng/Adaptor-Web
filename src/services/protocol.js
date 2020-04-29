@@ -4,16 +4,16 @@ import axios from "../common/axios";
 //前端模拟接口，最终还是调用后端接口。
 //注意：这些接口中，凡是给出demo数据的，后端接口返回的数据格式要和demo一致，不然无法解析
 export function getSensorList (url,params) {
-  const sensorList = {total:defaultValue.sensorList.total,records:defaultValue.sensorList.records,
-    sensorType:defaultValue.typeData}
+  /*const sensorList = {total:defaultValue.sensorList.total,records:defaultValue.sensorList.records,
+    sensorType:defaultValue.typeData}*/
   return new Promise((resolve, reject) => {
     axios.get(url,{params}).then(response => {
-      resolve(response.data)
+      resolve({total:response.data.length,records:response.data})
     }, err => {
-      resolve(sensorList)
+      resolve(err)
     })
       .catch((error) => {
-        resolve(sensorList)
+        reject(error)
       })
   })
 }
@@ -46,6 +46,7 @@ export function getSensorsByType (url,params) {
 
 
 export function addSensor (url,params) {
+  debugger
   return new Promise((resolve, reject) => {
     axios.post(url, { params }).then(response => {
       resolve(response.data)
@@ -89,3 +90,44 @@ export function getHistoryData (url,params) {
       })
   })
 }
+
+//得到传感器的所有属性
+/*
+export function list(url,params) {
+  const sensorProperty={total:0,records:[]}
+  return new Promise((resolve, reject) => {
+    axios.get(url, { params }).then(response => {
+      resolve(response.data)
+    }, err => {
+      resolve(sensorProperty)
+    })
+      .catch((error) => {
+        resolve(sensorProperty)
+      })
+  })
+}
+
+export function add(url,params) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, { params }).then(response => {
+      resolve(response.data)
+    })
+      .catch((error) => {
+        resolve(error)
+      })
+  })
+}
+
+export function update(url,params) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, { params }).then(response => {
+      resolve(response.data)
+    })
+      .catch((error) => {
+        resolve(error)
+      })
+  })
+}
+
+*/
+

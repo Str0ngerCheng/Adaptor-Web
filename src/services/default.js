@@ -500,7 +500,8 @@ export default {
   },
   typeData:[
     { text: '土壤湿度', value: '土壤湿度' },
-    { text: '土壤温度', value: '土壤温度' }
+    { text: '土壤温度', value: '土壤温度' },
+    {text:'风速',value:'风速'}
   ],
   historyData:[
     {
@@ -603,6 +604,15 @@ export default {
       "sort": 0,
       "name": "ZigBee",
       "href": "/protocol/zigbee",
+      "icon": "fa fa-feed",
+      "children": [],
+      "isShow": "1"
+    },{
+      "id": 104,
+      "parentId": 102,
+      "sort": 0,
+      "name": "BLE",
+      "href": "/protocol/BLE",
       "icon": "fa fa-feed",
       "children": [],
       "isShow": "1"

@@ -143,6 +143,7 @@
   import * as api from "../../api"
   import * as protocolApi from '../../services/protocol'
   import line from '../charts/line.vue'
+  import defaultValue from '../../services/default'
 
   export default {
     components: {
@@ -244,7 +245,8 @@
       },
       handleDelete(index, row){
         protocolApi.deleteSensor(api.SENSOR_DELETE,{
-          sensorName: row.name
+          sensorName: row.name,
+          type: row.type
         }).then(res => {
             this.loadData();
           },err=>{
@@ -254,13 +256,13 @@
       filterTag(filters) {
         //aType此处是数组，前端类型可以选择多个，以此来筛选传感器
         //重置时，aType为空
+        debugger
         if(filters.aType.length==0)
           this.loadData();
         else protocolApi.getSensorsByType(api.SENSOR_GET_BY_TYPE,{
           type:filters.aType,
           protocol:this.protocol
         }).then(res => {
-
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
           });
@@ -273,7 +275,7 @@
           .then(res => {
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
-            this.typeData=res.sensorType
+            this.typeData= defaultValue.typeData
           });
       }
     },
