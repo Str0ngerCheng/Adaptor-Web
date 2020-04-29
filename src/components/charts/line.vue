@@ -75,6 +75,7 @@
                 name: "8:00",
                 type: 'line',
                 tiled: '总量',
+              //smooth:false,
                 areaStyle: {normal: {}},
                 data: data8
               },
@@ -83,6 +84,7 @@
                 name: "18:00",
                 type: 'line',
                 tiled: '总量',
+              //smooth:false,
                 areaStyle: {normal: {}},
                 data: data16
               },

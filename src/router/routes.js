@@ -10,7 +10,9 @@ import resetPwd from "../pages/resetPwd.vue";
 import index from "../pages/index.vue";
 import sensorAdd from "../pages/sensors/sensorAdd.vue";
 import zigbee from "../pages/sensors/zigbee.vue";
+import rtsp from "../pages/sensors/rtsp.vue";
 import basemap from "../components/amap/basemap.vue";
+import BLE from "../pages/sensors/BLE.vue";
 // Routes
 const routes = [
   {path: '/login', component: login},
@@ -25,6 +27,8 @@ const routes = [
       {path: '/index', component: index},
       {path: '/protocol/sensorAdd', name: 'sensorAdd' ,component: sensorAdd},
       {path: '/protocol/zigbee', component: zigbee},
+      {path: '/protocol/BLE', component: BLE},
+      {path: '/protocol/rtsp', component: rtsp},
       {path: '/tree', component: basemap},
       {path: '/sys/menuList', component: menuList},
       {path: '/sys/roleList', component: role},

@@ -496,7 +496,7 @@ export default {
         "remarks": "近火就把政通增电加能开比没现过对办部。对率大元这证起速构感型众决王每状使。取力近标子组毛济料构论美业。",
         "avatar": "http://dummyimage.com/100x100/79f28a/757575.png&text=H"
       }],
-    total: 99
+    total: 9
   },
   typeData:[
     { text: '土壤湿度', value: '土壤湿度' },
@@ -606,10 +606,28 @@ export default {
       "icon": "fa fa-feed",
       "children": [],
       "isShow": "1"
-    }],
+    },{
+      "id": 104,
+      "parentId": 102,
+      "sort": 0,
+      "name": "BLE",
+      "href": "/protocol/BLE",
+      "icon": "fa fa-feed",
+      "children": [],
+      "isShow": "1"
+    }, {
+        "id": 105,
+        "parentId": 102,
+        "sort": 0,
+        "name": "RTSP",
+        "href": "/protocol/rtsp",
+        "icon": "fa fa-feed",
+        "children": [],
+        "isShow": "1"
+      }],
     "isShow": "1"
   }, {
-    "id": 104,
+    "id": 110,
     "parentId": null,
     "sort": 3,
     "name": "架构",

@@ -26,6 +26,7 @@
     "vue-image-crop-upload": "^2.0.3",
     "vue-progressbar": "^0.7.3",
     "vue-router": "^2.7.0",
+    "vue-video-player": "^5.0.2",
     "vuex": "^2.4.0",
     "vuex-router-sync": "^4.3.0"
   },

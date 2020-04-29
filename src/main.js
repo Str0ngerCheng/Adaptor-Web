@@ -10,14 +10,19 @@ import Element from "element-ui";
 import 'element-ui/lib/theme-chalk/index.css';
 import ImpPanel from "./components/panel.vue";
 import VueAMap from 'vue-amap';
+import VideoPlayer from 'vue-video-player'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
 
 Vue.prototype.$http = axios
 Vue.axios = axios
 Vue.http = axios;
+
 Vue.use(axios);
 Vue.use(Element);
-
 Vue.use(VueAMap);
+Vue.use(VideoPlayer)
+
 VueAMap.initAMapApiLoader({
   key: '8d552938b286df5704d2ced87767b73a',
   plugin: ['AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType'],

@@ -83,9 +83,9 @@
             <el-button :type="scope.row.status===1 ? 'success':'danger'"
                        style="padding:8px; vertical-align:middle">
             </el-button>
-           <!-- <el-button size="small" :type="scope.row.status===1 ? 'success':'danger'">
-              {{ scope.row.status===1 ? "正常运行":'未运行'}}
-            </el-button>-->
+            <!-- <el-button size="small" :type="scope.row.status===1 ? 'success':'danger'">
+               {{ scope.row.status===1 ? "正常运行":'未运行'}}
+             </el-button>-->
           </template>
         </el-table-column>
         <el-table-column
@@ -143,7 +143,7 @@
   import * as api from "../../api"
   import * as protocolApi from '../../services/protocol'
   import line from '../charts/line.vue'
-
+  import defaultValue from '../../services/default'
   export default {
     components: {
       'imp-panel': panel,
@@ -172,11 +172,10 @@
         },
         typeData:[],
         historyData:{}
-
       }
     },
     props:{
-     protocol:String
+      protocol:String
     },
     watch:{
       //清空输入框中的内容后显示所有列表数据
@@ -210,12 +209,11 @@
         let sensorName=item.value;
         protocolApi.getSensorsByName(api.SENSOR_GET_BY_NAME,{sensorName:sensorName
         }).then(res => {
-            this.tableData.rows = res.records;
-            this.tableData.pagination.total = res.total;
-          });
+          this.tableData.rows = res.records;
+          this.tableData.pagination.total = res.total;
+        });
         this.searchSelected=true
       },
-
       //将historyData置为空，此时图表会再次刷新，避免影响获取其他历史数据的绘制
       handleDialogClose(){
         this.historyData={}
@@ -236,7 +234,6 @@
         },err=>{
           this.$message.error('历史数据获取失败：'+err)
         })
-
       },
       handleEdit(index, row){
         //路由跳转，并传递参数
@@ -244,26 +241,27 @@
       },
       handleDelete(index, row){
         protocolApi.deleteSensor(api.SENSOR_DELETE,{
-          sensorName: row.name
+          sensorName: row.name,
+          type: row.type
         }).then(res => {
-            this.loadData();
-          },err=>{
+          this.loadData();
+        },err=>{
           this.$message.error('删除失败：'+err)
         });
       },
       filterTag(filters) {
         //aType此处是数组，前端类型可以选择多个，以此来筛选传感器
         //重置时，aType为空
+        debugger
         if(filters.aType.length==0)
           this.loadData();
         else protocolApi.getSensorsByType(api.SENSOR_GET_BY_TYPE,{
           type:filters.aType,
           protocol:this.protocol
         }).then(res => {
-
-            this.tableData.rows = res.records;
-            this.tableData.pagination.total = res.total;
-          });
+          this.tableData.rows = res.records;
+          this.tableData.pagination.total = res.total;
+        });
       },
       //加载列表数据
       loadData(){
@@ -273,14 +271,13 @@
           .then(res => {
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
-            this.typeData=res.sensorType
+            this.typeData= defaultValue.typeData
           });
       }
     },
     created(){
       this.loadData();
     }
-
   }
 </script>
 <style>
