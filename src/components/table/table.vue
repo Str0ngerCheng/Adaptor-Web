@@ -105,7 +105,7 @@
               size="small"
               type="primary"
               @click="handleHistoryData(scope.$index, scope.row)">
-              <i class='fa fa-line-chart'>历史数据</i>
+              <i class='fa fa-line-chart'style="margin-right: 5px"></i>历史数据
             </el-button>
             <el-button
               size="small"
