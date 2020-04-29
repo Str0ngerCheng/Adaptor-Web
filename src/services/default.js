@@ -500,7 +500,8 @@ export default {
   },
   typeData:[
     { text: '土壤湿度', value: '土壤湿度' },
-    { text: '土壤温度', value: '土壤温度' }
+    { text: '土壤温度', value: '土壤温度' },
+    {text:'风速',value:'风速'}
   ],
   historyData:[
     {
@@ -624,7 +625,8 @@ export default {
         "icon": "fa fa-feed",
         "children": [],
         "isShow": "1"
-      }],
+    }],
+
     "isShow": "1"
   }, {
     "id": 110,

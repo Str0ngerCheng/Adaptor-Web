@@ -33,7 +33,7 @@
   import * as api from "../../api"
   import * as protocolApi from '../../services/protocol'
   import panel from "../../components/panel.vue"
-
+  import table from "../../components/table/table.vue"
 
   export default {
     components: {
@@ -47,6 +47,7 @@
           longitude:'',
           latitude:'',
           type: '',
+          protocol: '',
           location: '',
           status: 1,
           description: ''
@@ -60,6 +61,7 @@
     },
     methods: {
       onSubmit(){
+        debugger
         protocolApi.addSensor(api.SENSOR_ADD,{
           ...this.form,
           location:this.form.longitude+' '+this.form.latitude,
@@ -79,6 +81,7 @@
       onEditSubmit(){
         protocolApi.editSensor(api.SENSOR_UPDATE,{
           ...this.form,
+          location:this.form.longitude+' '+this.form.latitude,
           protocol:this.$route.params.protocol
         })
           .then(res => {
@@ -104,6 +107,8 @@
           this.form.status = this.$route.params.status;
           this.form.longitude= this.$route.params.location.split(' ')[0];
           this.form.latitude= this.$route.params.location.split(' ')[1];
+          this.form.description=this.$route.params.description;
+          this.form.protocol=this.$route.params.protocol;
         }
       }
     },

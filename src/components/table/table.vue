@@ -144,6 +144,7 @@
   import * as protocolApi from '../../services/protocol'
   import line from '../charts/line.vue'
   import defaultValue from '../../services/default'
+
   export default {
     components: {
       'imp-panel': panel,
@@ -259,9 +260,9 @@
           type:filters.aType,
           protocol:this.protocol
         }).then(res => {
-          this.tableData.rows = res.records;
-          this.tableData.pagination.total = res.total;
-        });
+            this.tableData.rows = res.records;
+            this.tableData.pagination.total = res.total;
+          });
       },
       //加载列表数据
       loadData(){
