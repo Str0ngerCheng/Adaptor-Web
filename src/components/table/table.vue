@@ -66,18 +66,44 @@
           <template slot-scope="scope">
             <el-tag
               type="primary"
-              disable-transitions>{{scope.row.type}}</el-tag>
+              disable-transitions>{{scope.row.type}}
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column
           prop="obs_value"
           label="观测值"
+          width="120"
           align='center'>
+          <template slot-scope="scope">
+            <el-popover
+              placement="top"
+              align='center'
+              trigger="click"
+              @show="handleRealTimeData(scope.$index, scope.row)"
+              @hide="closeRealTimeData()">
+              <el-card
+                :body-style="{ padding: '15px' }">
+                <div class="obsValue">
+                  <span>{{realTimeData.obsValue}}</span>
+                </div>
+                  <div class="bottom">
+                    <time class="time">{{ realTimeData.timestamp }}</time>
+                  </div>
+              </el-card>
+              <el-button
+                slot="reference"
+                size="mini"
+                type="primary">
+                <i style="align:center">实时数据</i>
+              </el-button>
+            </el-popover>
+          </template>
         </el-table-column>
 
         <el-table-column
           label="状态"
-          width="110"
+          width="100"
           align='center'>
           <template slot-scope="scope">
             <el-button :type="scope.row.status===1 ? 'success':'danger'"
@@ -105,7 +131,7 @@
               size="small"
               type="primary"
               @click="handleHistoryData(scope.$index, scope.row)">
-              <i class='fa fa-line-chart'style="margin-right: 5px"></i>历史数据
+              <i class='fa fa-line-chart' style="margin-right: 5px"></i>历史数据
             </el-button>
             <el-button
               size="small"
@@ -128,7 +154,7 @@
         :total="tableData.pagination.total">
       </el-pagination>
 
-      <el-dialog title="传感器历史数据"  :visible.sync="dialogVisible" size="small" @close='handleDialogClose'>
+      <el-dialog title="传感器历史数据" :visible.sync="dialogVisible" size="small" @close='handleDialogClose'>
         <chart-line :history-data="historyData"/>
       </el-dialog>
     </div>
@@ -148,9 +174,9 @@
   export default {
     components: {
       'imp-panel': panel,
-      'chart-line':line
+      'chart-line': line
     },
-    data(){
+    data() {
       return {
         dialogVisible: false,
         dialogLoading: false,
@@ -171,34 +197,39 @@
           },
           rows: []
         },
-        typeData:[],
-        historyData:{}
+        typeData: [],
+        historyData: {},
+        websocket: {},
+        realTimeData: {
+          obsValue: 0,
+          timestamp: 0
+        },
       }
     },
-    props:{
-      protocol:String
+    props: {
+      protocol: String
     },
-    watch:{
+    watch: {
       //清空输入框中的内容后显示所有列表数据
       //searchSelected用来防止初始时(此时输入框为空)调用loadData()
       searchKey: {
         handler(newValue, oldValue) {
-          if(newValue==''&&this.searchSelected){
+          if (newValue == '' && this.searchSelected) {
             this.loadData();
-            this.searchSelected=false
+            this.searchSelected = false
           }
         }
       },
     },
     methods: {
       querySearch(queryString, cb) {
-        let  rows = []
-        for(let i=0;i<this.tableData.rows.length;i++){
-          rows.push({value:this.tableData.rows[i].name})
+        let rows = []
+        for (let i = 0; i < this.tableData.rows.length; i++) {
+          rows.push({value: this.tableData.rows[i].name})
         }
         let res = new Map();
-        rows=rows.filter((row) => !res.has(row.value) && res.set(row.value, 1));//rows去重
-        let  results = queryString ? rows.filter(this.createFilter(queryString)) : rows;
+        rows = rows.filter((row) => !res.has(row.value) && res.set(row.value, 1));//rows去重
+        let results = queryString ? rows.filter(this.createFilter(queryString)) : rows;
         cb(results);
       },
       createFilter(queryString) {
@@ -207,17 +238,18 @@
         };
       },
       handleSelect(item) {
-        let sensorName=item.value;
-        protocolApi.getSensorsByName(api.SENSOR_GET_BY_NAME,{sensorName:sensorName
+        let sensorName = item.value;
+        protocolApi.getSensorsByName(api.SENSOR_GET_BY_NAME, {
+          sensorName: sensorName
         }).then(res => {
           this.tableData.rows = res.records;
           this.tableData.pagination.total = res.total;
         });
-        this.searchSelected=true
+        this.searchSelected = true
       },
       //将historyData置为空，此时图表会再次刷新，避免影响获取其他历史数据的绘制
-      handleDialogClose(){
-        this.historyData={}
+      handleDialogClose() {
+        this.historyData = {}
       },
       handleSizeChange(val) {
         this.tableData.pagination.pageSize = val;
@@ -225,58 +257,105 @@
       handleCurrentChange(val) {
         this.tableData.pagination.pageNo = val;
       },
-      handleHistoryData(index, row){
+      handleHistoryData(index, row) {
         this.dialogVisible = true;
-        protocolApi.getHistoryData(api.SENSOR_HistoryData,{
+        protocolApi.getHistoryData(api.SENSOR_HistoryData, {
           sensorName: row.name,
-          type:row.type
+          type: row.type
         }).then(res => {
-          this.historyData=res
-        },err=>{
-          this.$message.error('历史数据获取失败：'+err)
+          this.historyData = res
+        }, err => {
+          this.$message.error('历史数据获取失败：' + err)
         })
       },
-      handleEdit(index, row){
+      handleEdit(index, row) {
         //路由跳转，并传递参数
-        this.$router.push({name: 'sensorAdd', params: {...row,protocol:this.protocol},query:{id: row.id}})
+        this.$router.push({name: 'sensorAdd', params: {...row, protocol: this.protocol}, query: {id: row.id}})
       },
-      handleDelete(index, row){
-        protocolApi.deleteSensor(api.SENSOR_DELETE,{
+      handleDelete(index, row) {
+        protocolApi.deleteSensor(api.SENSOR_DELETE, {
           sensorName: row.name,
           type: row.type
         }).then(res => {
           this.loadData();
-        },err=>{
-          this.$message.error('删除失败：'+err)
+        }, err => {
+          this.$message.error('删除失败：' + err)
         });
       },
       filterTag(filters) {
         //aType此处是数组，前端类型可以选择多个，以此来筛选传感器
         //重置时，aType为空
-        if(filters.aType.length==0)
+        if (filters.aType.length == 0)
           this.loadData();
-        else protocolApi.getSensorsByType(api.SENSOR_GET_BY_TYPE,{
-          type:filters.aType,
-          protocol:this.protocol
+        else protocolApi.getSensorsByType(api.SENSOR_GET_BY_TYPE, {
+          type: filters.aType,
+          protocol: this.protocol
         }).then(res => {
-            this.tableData.rows = res.records;
-            this.tableData.pagination.total = res.total;
-          });
+          this.tableData.rows = res.records;
+          this.tableData.pagination.total = res.total;
+        });
       },
       //加载列表数据
-      loadData(){
-        protocolApi.getSensorList(api.SENSOR_LIST,{
-          protocol:this.protocol
+      loadData() {
+        protocolApi.getSensorList(api.SENSOR_LIST, {
+          protocol: this.protocol
         })
           .then(res => {
             this.tableData.rows = res.records;
             this.tableData.pagination.total = res.total;
-            this.typeData= res.typeData
+            this.typeData = res.typeData
           });
+      },
+      //WebSocket部分函数
+      handleRealTimeData(index, row) {
+        //{signal:5,sensorName:"NBIOT-001",obsPropName:"土壤温度"}
+        //接收到signal=0表示客户端暂停接收数据，signal=t表示前端希望每隔ts接收到服务端发送的数据
+        var jsonstr = JSON.stringify({
+          signal: 5,//控制实时数据的发送间隔为5s
+          sensorName: row.name,
+          obsPropName: row.type
+        });
+        this.websocket.send(jsonstr);
+        console.log("send message to get real time data:" + jsonstr);
+      },
+      closeRealTimeData() {
+        //向后端发送停止的信号
+        var jsonstr = JSON.stringify({
+          signal: 0,
+          sensorName: "",
+          obsPropName: ""
+        });
+        this.websocket.send(jsonstr);
+        console.log("send message to stop real time data:" + jsonstr);
+      },
+      websocketOnMessage(e) {
+        this.realTimeData = {
+          obsValue:JSON.parse(e.data).obsValue,
+          timestamp: new Date(JSON.parse(e.data).timestamp).toLocaleString()
+          }
+        console.log("realTimeData",this.realTimeData);
       }
     },
-    created(){
+    created() {
       this.loadData();
+      //页面初始化的时候持有一个websocket对象
+      this.websocket = new WebSocket(api.SENSOR_WEBSOCKET_URL);
+      //页面刷新的时候需要关闭websocket连接
+      window.addEventListener('beforeunload', e => {this.websocket.close();});
+      this.websocket.onopen = () => {
+        console.log("WebSocket连接成功");
+      };
+      this.websocket.onclose = (e) => {
+        console.log("关闭WebSocket连接" + e.code);
+      };
+      this.websocket.onerror = (e) => {
+        console.log("WebSocket连接发生错误", e);
+      };
+      //处理服务器发送过来的数据
+      this.websocket.onmessage = this.websocketOnMessage;
+    },
+    beforeDestroy() {
+      this.websocket.close();//关闭页面时关闭连接
     }
   }
 </script>
@@ -285,7 +364,30 @@
     float: right;
     margin-top: 15px;
   }
-  .el-table th>.cell{
-    display:block;
+
+  .el-table th > .cell {
+    display: block;
   }
+
+  /*弹出框的style*/
+  .time {
+    font-size: 12px;
+    color: #636363;
+  }
+
+  .bottom {
+    margin-top: 10px;
+    line-height: 10px;
+  }
+
+  .obsValue {
+    width: 100%;
+    display: block;
+    color:#FF5733;
+    font-weight: bold;
+    font-size: 30px;
+    text-align:center;
+    align-content:center;
+  }
+
 </style>

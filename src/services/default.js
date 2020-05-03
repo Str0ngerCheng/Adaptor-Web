@@ -625,6 +625,15 @@ export default {
         "icon": "fa fa-feed",
         "children": [],
         "isShow": "1"
+    },{
+      "id": 106,
+      "parentId": 102,
+      "sort": 0,
+      "name": "NBIOT",
+      "href": "/protocol/NBIOT",
+      "icon": "fa fa-feed",
+      "children": [],
+      "isShow": "1"
     }],
 
     "isShow": "1"

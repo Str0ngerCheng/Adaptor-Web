@@ -13,7 +13,7 @@ import zigbee from "../pages/sensors/zigbee.vue";
 import rtsp from "../pages/sensors/rtsp.vue";
 import basemap from "../components/amap/basemap.vue";
 import BLE from "../pages/sensors/BLE.vue";
-
+import NBIOT from "../pages/sensors/nbiot.vue"
 
 // Routes
 const routes = [
@@ -30,6 +30,7 @@ const routes = [
       {path: '/protocol/sensorAdd', name: 'sensorAdd' ,component: sensorAdd},
       {path: '/protocol/zigbee', component: zigbee},
       {path: '/protocol/BLE', component: BLE},
+      {path: '/protocol/NBIOT', component: NBIOT},
       {path: '/protocol/rtsp', component: rtsp},
       {path: '/tree', component: basemap},
       {path: '/sys/menuList', component: menuList},
