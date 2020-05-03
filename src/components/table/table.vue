@@ -80,8 +80,8 @@
               placement="top"
               align='center'
               trigger="click"
-              @show="handleRealTimeData(scope.$index, scope.row)"
-              @hide="closeRealTimeData()">
+              @after-enter="handleRealTimeData(scope.$index, scope.row)"
+              @after-leave="closeRealTimeData()">
               <el-card
                 :body-style="{ padding: '15px' }">
                 <div class="obsValue">
