@@ -119,25 +119,30 @@
           label="协议参数"
           align='center'>
         </el-table-column>
-        <el-table-column label="操作" width="295" align='center'>
+        <el-table-column label="操作" width="200" align='center'>
           <template slot-scope="scope">
             <el-button
               size="small"
               type="default"
+              circle
               icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)">编辑
+              @click="handleEdit(scope.$index, scope.row)">
             </el-button>
+
             <el-button
               size="small"
               type="primary"
+              circle
               @click="handleHistoryData(scope.$index, scope.row)">
-              <i class='fa fa-line-chart' style="margin-right: 5px"></i>历史数据
+              <i class='fa fa-area-chart' style="height: 12px;width: 12px"></i>
             </el-button>
+
             <el-button
               size="small"
               type="danger"
+              circle
               icon="el-icon-delete"
-              @click="handleDelete(scope.$index, scope.row)">删除
+              @click="handleDelete(scope.$index, scope.row)">
             </el-button>
           </template>
         </el-table-column>
