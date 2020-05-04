@@ -88,7 +88,7 @@
                   <span>{{realTimeData.obsValue}}</span>
                 </div>
                   <div class="bottom">
-                    <time class="time">{{ realTimeData.timestamp }}</time>
+                    <time class="time">{{ date }}</time>
                   </div>
               </el-card>
               <el-button
@@ -209,6 +209,7 @@
           obsValue: 0,
           timestamp: 0
         },
+        date:this.handledateformat(new Date()),
       }
     },
     props: {
@@ -322,6 +323,11 @@
         });
         this.websocket.send(jsonstr);
         console.log("send message to get real time data:" + jsonstr);
+        //设置定时器
+        let _this = this;
+        this.timer = setInterval(function(){
+          _this.date = _this .handledateformat(new Date())
+        },1000);
       },
       closeRealTimeData() {
         //向后端发送停止的信号
@@ -332,6 +338,10 @@
         });
         this.websocket.send(jsonstr);
         console.log("send message to stop real time data:" + jsonstr);
+        //清除定时器
+        if(this.timer){
+          clearInterval(this.timer);
+        }
       },
       websocketOnMessage(e) {
         this.realTimeData = {
@@ -339,6 +349,11 @@
           timestamp: new Date(JSON.parse(e.data).timestamp).toLocaleString()
           }
         console.log("realTimeData",this.realTimeData);
+      },
+      //格式化时间
+      handledateformat(time){
+        return `${time.getFullYear()}-${time.getMonth() + 1 >= 10 ? (time.getMonth() + 1) : '0' + (time.getMonth() + 1)}-${time.getDate() >= 10 ? time.getDate() : '0' + time.getDate()}
+                     ${time.getHours() >= 10 ? time.getHours():'0' + time.getHours()}:${time.getMinutes()>=10?time.getMinutes():'0'+time.getMinutes()}:${time.getSeconds() >= 10 ? time.getSeconds():'0' + time.getSeconds()}`;
       }
     },
     created() {
@@ -361,6 +376,10 @@
     },
     beforeDestroy() {
       this.websocket.close();//关闭页面时关闭连接
+      //清除定时器,防止有closeRealTimeData没有被调用的情况
+      if(this.timer){
+        clearInterval(this.timer);
+      }
     }
   }
 </script>
