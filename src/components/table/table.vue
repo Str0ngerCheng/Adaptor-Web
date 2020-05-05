@@ -209,7 +209,7 @@
           obsValue: 0,
           timestamp: 0
         },
-        date:this.handledateformat(new Date()),
+        date:'',
       }
     },
     props: {
@@ -240,7 +240,7 @@
       },
       createFilter(queryString) {
         return (row) => {
-          return (row.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          return (row.value.toLowerCase().indexOf(queryString.toLowerCase()) != -1);
         };
       },
       handleSelect(item) {
@@ -279,14 +279,30 @@
         this.$router.push({name: 'sensorAdd', params: {...row, protocol: this.protocol}, query: {id: row.id}})
       },
       handleDelete(index, row) {
-        protocolApi.deleteSensor(api.SENSOR_DELETE, {
-          sensorName: row.name,
-          type: row.type
-        }).then(res => {
-          this.loadData();
-        }, err => {
-          this.$message.error('删除失败：' + err)
+        this.$confirm('此操作将永久删除该传感器, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          protocolApi.deleteSensor(api.SENSOR_DELETE, {
+            sensorName: row.name,
+            type: row.type
+          }).then(res => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.loadData();
+          }, err => {
+            this.$message.error('删除失败：' + err)
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
         });
+
       },
       filterTag(filters) {
         //aType此处是数组，前端类型可以选择多个，以此来筛选传感器
@@ -316,32 +332,23 @@
       handleRealTimeData(index, row) {
         //{signal:5,sensorName:"NBIOT-001",obsPropName:"土壤温度"}
         //接收到signal=0表示客户端暂停接收数据，signal=t表示前端希望每隔ts接收到服务端发送的数据
-        var jsonstr = JSON.stringify({
+        let jsonstr = JSON.stringify({
           signal: 5,//控制实时数据的发送间隔为5s
           sensorName: row.name,
           obsPropName: row.type
         });
         this.websocket.send(jsonstr);
         console.log("send message to get real time data:" + jsonstr);
-        //设置定时器
-        let _this = this;
-        this.timer = setInterval(function(){
-          _this.date = _this .handledateformat(new Date())
-        },1000);
       },
       closeRealTimeData() {
         //向后端发送停止的信号
-        var jsonstr = JSON.stringify({
+        let jsonstr = JSON.stringify({
           signal: 0,
           sensorName: "",
           obsPropName: ""
         });
         this.websocket.send(jsonstr);
         console.log("send message to stop real time data:" + jsonstr);
-        //清除定时器
-        if(this.timer){
-          clearInterval(this.timer);
-        }
       },
       websocketOnMessage(e) {
         this.realTimeData = {
@@ -351,13 +358,15 @@
         console.log("realTimeData",this.realTimeData);
       },
       //格式化时间
-      handledateformat(time){
+      handleDateFormat(time){
         return `${time.getFullYear()}-${time.getMonth() + 1 >= 10 ? (time.getMonth() + 1) : '0' + (time.getMonth() + 1)}-${time.getDate() >= 10 ? time.getDate() : '0' + time.getDate()}
                      ${time.getHours() >= 10 ? time.getHours():'0' + time.getHours()}:${time.getMinutes()>=10?time.getMinutes():'0'+time.getMinutes()}:${time.getSeconds() >= 10 ? time.getSeconds():'0' + time.getSeconds()}`;
       }
     },
     created() {
       this.loadData();
+    },
+    mounted() {
       //页面初始化的时候持有一个websocket对象
       this.websocket = new WebSocket(api.SENSOR_WEBSOCKET_URL);
       //页面刷新的时候需要关闭websocket连接
@@ -373,6 +382,11 @@
       };
       //处理服务器发送过来的数据
       this.websocket.onmessage = this.websocketOnMessage;
+      //设置定时器
+      let _this = this;
+      this.timer = setInterval(function(){
+        _this.date = _this .handleDateFormat(new Date())
+      },1000);
     },
     beforeDestroy() {
       this.websocket.close();//关闭页面时关闭连接
