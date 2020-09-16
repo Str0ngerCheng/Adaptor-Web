@@ -25,6 +25,7 @@ const routes = [
   },
   {
     path: '', component: app, children: [
+      { path: '/', redirect: '/index'},
       {path: '/resetPwd', component: resetPwd},
       {path: '/index', component: index},
       {path: '/protocol/sensorAdd', name: 'sensorAdd' ,component: sensorAdd},
@@ -32,13 +33,13 @@ const routes = [
       {path: '/protocol/BLE', component: BLE},
       {path: '/protocol/NBIOT', component: NBIOT},
       {path: '/protocol/rtsp', component: rtsp},
-      {path: '/tree', component: basemap},
+      {path: '/map', component: basemap},
       {path: '/sys/menuList', component: menuList},
       {path: '/sys/roleList', component: role},
       {path: '/sys/userList', component: sysUser},
       {path: '/sys/userAdd', component: userAdd},
       {path: '/sys/resource', component: resource}
-    ]
+    ],
   },
   {path: '*', component: NotFoundView}
 ]
