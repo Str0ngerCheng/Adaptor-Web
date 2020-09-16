@@ -1,9 +1,9 @@
 <template>
   <imp-panel>
-    <div class="table">
+    <div class="table" style="padding: 5px">
       <!-- <div class="container"> -->
       <!-- <div class='demo'> -->
-      <el-button type="primary" @click="moreScreenMode" variant="primary" v-if="videoPageButton == true">
+      <el-button type="primary" size="medium" @click="moreScreenMode" variant="primary" v-if="videoPageButton == true">
         {{buttonTitile}}</el-button>
       <div class=" wfsjs" id="wfsjs" style="margin-top: 20px;text-align: center;" ref="videoDiv">
         <div id="video-main" :style="{width:mainWidth,height:mainHeight}">
