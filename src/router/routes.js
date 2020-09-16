@@ -14,6 +14,7 @@ import rtsp from "../pages/sensors/rtsp.vue";
 import basemap from "../components/amap/basemap.vue";
 import BLE from "../pages/sensors/BLE.vue";
 import NBIOT from "../pages/sensors/nbiot.vue"
+import video from "../pages/sensors/VideoPage1.vue"
 
 // Routes
 const routes = [
@@ -32,7 +33,7 @@ const routes = [
       {path: '/protocol/zigbee', component: zigbee},
       {path: '/protocol/BLE', component: BLE},
       {path: '/protocol/NBIOT', component: NBIOT},
-      {path: '/protocol/rtsp', component: rtsp},
+      {path: '/protocol/rtsp', component: video},
       {path: '/map', component: basemap},
       {path: '/sys/menuList', component: menuList},
       {path: '/sys/roleList', component: role},
