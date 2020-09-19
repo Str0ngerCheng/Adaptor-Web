@@ -22,7 +22,7 @@
           fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
           sources: [{
             type: "",
-            src: require('D://test.mp4')//url地址
+            src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'//url地址
             // src: "" //url地址
           }],
           poster: "", //你的封面地址
