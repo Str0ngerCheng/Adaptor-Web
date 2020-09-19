@@ -52,7 +52,6 @@
   import * as sysApi from '../services/sys'
   import {mapGetters, mapActions, mapMutations} from 'vuex'
   import axios from "../common/axios";
-
   export default {
     name: 'login',
     data() {

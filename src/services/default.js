@@ -547,51 +547,6 @@ export default {
     "children": [],
     "isShow": "1"
   }, {
-    "id": 31,
-    "parentId": null,
-    "sort": 1,
-    "name": "测试1",
-    "href": "/test/1",
-    "icon": "fa fa-upload fa-fw",
-    "children": [{
-      "id": 92,
-      "parentId": 31,
-      "sort": 0,
-      "name": "测试1-1",
-      "href": "/test/1/1",
-      "icon": "fa fa-bank fa-fw",
-      "children": [{
-        "id": 912,
-        "parentId": 92,
-        "sort": 0,
-        "name": "测试1-1-1",
-        "href": "/test/1/1/1",
-        "icon": "fa fa-bank fa-fw",
-        "children": [],
-        "isShow": "1"
-      }, {
-        "id": 913,
-        "parentId": 92,
-        "sort": 0,
-        "name": "测试1-1-2",
-        "href": "/test/1/1/2",
-        "icon": "fa fa-area-chart fa-fw",
-        "children": [],
-        "isShow": "1"
-      }],
-      "isShow": "1"
-    }, {
-      "id": 93,
-      "parentId": 31,
-      "sort": 0,
-      "name": "测试1-2",
-      "href": "/test/1/2",
-      "icon": "fa fa-area-chart fa-fw",
-      "children": [],
-      "isShow": "1"
-    }],
-    "isShow": "1"
-  }, {
     "id": 102,
     "parentId": null,
     "sort": 3,
@@ -616,17 +571,8 @@ export default {
       "icon": "fa fa-feed fa-fw",
       "children": [],
       "isShow": "1"
-    }, {
-        "id": 105,
-        "parentId": 102,
-        "sort": 0,
-        "name": "RTSP",
-        "href": "/protocol/rtsp",
-        "icon": "fa fa-feed fa-fw",
-        "children": [],
-        "isShow": "1"
     },{
-      "id": 106,
+      "id": 105,
       "parentId": 102,
       "sort": 0,
       "name": "NBIOT",
@@ -634,13 +580,40 @@ export default {
       "icon": "fa fa-feed fa-fw",
       "children": [],
       "isShow": "1"
-    }],
+    }, {
+        "id": 106,
+        "parentId": 102,
+        "sort": 0,
+        "name": "RTSP",
+        "href": "/protocol/rtsp",
+        "icon": "fa fa-feed fa-fw",
+        "children": [],
+        "isShow": "1"
+      }],
 
+    "isShow": "1"
+  }, {
+    "id": 107,
+    "parentId": null,
+    "sort": 4,
+    "name": "平台",
+    "href": "/platform",
+    "icon": "fa fa-cubes fa-fw",
+    "children": [{
+      "id": 108,
+      "parentId": 107,
+      "sort": 0,
+      "name": "光场相机",
+      "href": "/platform/gcxj",
+      "icon": "fa fa-video-camera fa-fw",
+      "children": [],
+      "isShow": "1"
+    }],
     "isShow": "1"
   }, {
     "id": 110,
     "parentId": null,
-    "sort": 3,
+    "sort": 5,
     "name": "地图",
     "href": "/map",
     "icon": "fa fa-map-marker fa-fw",
@@ -653,7 +626,7 @@ export default {
     "href": "/sys",
     "icon": "fa fa-cog fa-fw",
     "children": [{
-      "id": 108,
+      "id": 109,
       "parentId": 6,
       "sort": 0,
       "name": "资源管理",

@@ -10,11 +10,11 @@ import resetPwd from "../pages/resetPwd.vue";
 import index from "../pages/index.vue";
 import sensorAdd from "../pages/sensors/sensorAdd.vue";
 import zigbee from "../pages/sensors/zigbee.vue";
-import rtsp from "../pages/sensors/rtsp.vue";
+import hk from "../pages/sensors/haikang.vue";
 import basemap from "../components/amap/basemap.vue";
 import BLE from "../pages/sensors/BLE.vue";
 import NBIOT from "../pages/sensors/nbiot.vue"
-import video from "../pages/sensors/VideoPage1.vue"
+import gcxj from "../pages/sensors/guangchangxiangji.vue"
 
 // Routes
 const routes = [
@@ -33,7 +33,8 @@ const routes = [
       {path: '/protocol/zigbee', component: zigbee},
       {path: '/protocol/BLE', component: BLE},
       {path: '/protocol/NBIOT', component: NBIOT},
-      {path: '/protocol/rtsp', component: video},
+      {path: '/protocol/rtsp', component: hk},
+      {path: '/platform/gcxj', component: gcxj},
       {path: '/map', component: basemap},
       {path: '/sys/menuList', component: menuList},
       {path: '/sys/roleList', component: role},

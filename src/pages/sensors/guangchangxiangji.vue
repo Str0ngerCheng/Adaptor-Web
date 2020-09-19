@@ -33,11 +33,7 @@
 </template>
 
 <script>
-  /* import "../../../static/js/sow-v1.1.0.min.js";
-   //引入控制层
-   // import "@/assets/js/cow-v1.0.0.js"
-   import "../../../static/js/cow-v1.1.1.min.js"
-   import "../../../static/js/touch.min.js"*/
+  import config from "../../services/gcxjConfig";
   import $ from 'jquery'
   //阻止浏览器拖动
   document.ontouchstart = function () {
@@ -115,33 +111,7 @@
         scenesId: null,
         defaultScenarioId: null,
         webDataarr: [],
-        res : {
-          "data": {
-            "data": {
-              "name": "场景管理",
-              "url": "/video",
-              "icon": "icon-camrecorder",
-              "isResourceManaged": true,
-              "resourceManage": {
-                "videoPageButton": true,
-                "getResourceListUrl": "http://192.168.0.107:8085/resourcelist",
-                "getResourceUrl": "http://192.168.0.107:8085/resource",
-                "mainResolution": "3840x2160",
-                "nextResolution": "1280x720"
-              },
-              "maxMagnification": 40,
-
-              "logoPath": "./img/avatars/logo.png"
-            },
-            "loginData": [{
-              "username": "zhkj",
-              "password": "zhkj2501"
-            }, {
-              "username": "admin",
-              "password": "12345"
-            }]
-          }
-        }
+        res : config
       };
     },
     // 组件销毁 生命周期
