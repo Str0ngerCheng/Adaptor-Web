@@ -28,7 +28,7 @@ export default {
     return uuid.join('');
   },
   getUid:function(){
-    var uid = window.localStorage.getItem('imp-uuid');
+    let uid = window.localStorage.getItem('imp-uuid');
     if (!uid) {
       uid = this.randomString(32);
       window.localStorage.setItem('imp-uuid',uid);
@@ -36,27 +36,47 @@ export default {
     return uid;
   },
   getSid:function(){
-    var sid = window.localStorage.getItem('imp-sid');
+    let sid = window.localStorage.getItem('imp-sid');
     if(!!sid){
       return sid;
     }
     return '';
   },
   login (token, callback) {
-    window.localStorage.setItem('imp-sid',token);
+    this.set('imp-sid',token,1000*60*60*24*15);
     if (callback) callback();
   },
 
   getToken () {
-    return window.localStorage.getItem('imp-sid');
+    this.get('imp-sid')
   },
 
   logout (cb) {
-    window.localStorage.removeItem('imp-sid');
+    window.localStorage.removeItem('imp-sid')
     if (cb) cb()
   },
 
   loggedIn () {
-    return !!window.localStorage.getItem('imp-sid');
+    return !!this.get('imp-sid');
+  },
+  set(key,value,expire){
+    let obj={
+      data:value,
+      time:Date.now(),//时间戳，同Date.now()
+      expire:expire//设置过期时间一个小时
+    }
+    window.localStorage.setItem(key,JSON.stringify(obj));
+  },
+  get(key){
+    let val =  window.localStorage.getItem(key);
+    if (!val) {
+      return val;
+    }
+    val = JSON.parse(val);
+    if (Date.now() - val.time > val.expire) {
+      window.localStorage.removeItem(key);
+      return null;
+    }
+    return val.data;
   }
 }

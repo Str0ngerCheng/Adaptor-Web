@@ -47,6 +47,7 @@
   .error-page .errorWarp .backBtn {
     display: inline-block;
     color: #fff;
+    background: #666666;
     margin-bottom: 20px;
     margin-top: 50px;
     padding: 15px 30px;

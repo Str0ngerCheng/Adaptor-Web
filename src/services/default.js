@@ -543,7 +543,7 @@ export default {
     "sort": 0,
     "name": "首页",
     "href": "/index",
-    "icon": "fa fa-dashboard",
+    "icon": "fa fa-dashboard fa-fw",
     "children": [],
     "isShow": "1"
   }, {
@@ -552,21 +552,21 @@ export default {
     "sort": 1,
     "name": "测试1",
     "href": "/test/1",
-    "icon": "fa fa-upload",
+    "icon": "fa fa-upload fa-fw",
     "children": [{
       "id": 92,
       "parentId": 31,
       "sort": 0,
       "name": "测试1-1",
       "href": "/test/1/1",
-      "icon": "fa fa-bank",
+      "icon": "fa fa-bank fa-fw",
       "children": [{
         "id": 912,
         "parentId": 92,
         "sort": 0,
         "name": "测试1-1-1",
         "href": "/test/1/1/1",
-        "icon": "fa fa-bank",
+        "icon": "fa fa-bank fa-fw",
         "children": [],
         "isShow": "1"
       }, {
@@ -575,7 +575,7 @@ export default {
         "sort": 0,
         "name": "测试1-1-2",
         "href": "/test/1/1/2",
-        "icon": "fa fa-area-chart",
+        "icon": "fa fa-area-chart fa-fw",
         "children": [],
         "isShow": "1"
       }],
@@ -586,7 +586,7 @@ export default {
       "sort": 0,
       "name": "测试1-2",
       "href": "/test/1/2",
-      "icon": "fa fa-area-chart",
+      "icon": "fa fa-area-chart fa-fw",
       "children": [],
       "isShow": "1"
     }],
@@ -597,14 +597,14 @@ export default {
     "sort": 3,
     "name": "协议",
     "href": "/protocol",
-    "icon": "fa fa-skyatlas",
+    "icon": "fa fa-skyatlas fa-fw",
     "children": [{
       "id": 103,
       "parentId": 102,
       "sort": 0,
       "name": "ZigBee",
       "href": "/protocol/zigbee",
-      "icon": "fa fa-feed",
+      "icon": "fa fa-feed fa-fw",
       "children": [],
       "isShow": "1"
     },{
@@ -613,7 +613,7 @@ export default {
       "sort": 0,
       "name": "BLE",
       "href": "/protocol/BLE",
-      "icon": "fa fa-feed",
+      "icon": "fa fa-feed fa-fw",
       "children": [],
       "isShow": "1"
     }, {
@@ -622,7 +622,7 @@ export default {
         "sort": 0,
         "name": "RTSP",
         "href": "/protocol/rtsp",
-        "icon": "fa fa-feed",
+        "icon": "fa fa-feed fa-fw",
         "children": [],
         "isShow": "1"
     },{
@@ -631,7 +631,7 @@ export default {
       "sort": 0,
       "name": "NBIOT",
       "href": "/protocol/NBIOT",
-      "icon": "fa fa-feed",
+      "icon": "fa fa-feed fa-fw",
       "children": [],
       "isShow": "1"
     }],
@@ -641,9 +641,9 @@ export default {
     "id": 110,
     "parentId": null,
     "sort": 3,
-    "name": "架构",
-    "href": "/tree",
-    "icon": "fa fa-skyatlas",
+    "name": "地图",
+    "href": "/map",
+    "icon": "fa fa-map-marker fa-fw",
     "isShow": "1"
   }, {
     "id": 6,
@@ -651,14 +651,14 @@ export default {
     "sort": 6,
     "name": "系统管理",
     "href": "/sys",
-    "icon": "fa fa-cog",
+    "icon": "fa fa-cog fa-fw",
     "children": [{
       "id": 108,
       "parentId": 6,
       "sort": 0,
-      "name": " 资源管理",
+      "name": "资源管理",
       "href": "/sys/resource",
-      "icon": "fa fa-database",
+      "icon": "fa fa-database fa-fw",
       "children": [],
       "isShow": "1"
     }, {
@@ -667,7 +667,7 @@ export default {
       "sort": 1,
       "name": "菜单管理",
       "href": "/sys/menuList",
-      "icon": "fa fa-navicon",
+      "icon": "fa fa-navicon fa-fw",
       "children": [],
       "isShow": "1"
     }, {
@@ -676,7 +676,7 @@ export default {
       "sort": 2,
       "name": "角色管理",
       "href": "/sys/roleList",
-      "icon": "fa fa-universal-access",
+      "icon": "fa fa-universal-access fa-fw",
       "children": [],
       "isShow": "1"
     }, {
@@ -685,7 +685,7 @@ export default {
       "sort": 3,
       "name": "用户管理",
       "href": "/sys/userList",
-      "icon": "fa fa-user-plus",
+      "icon": "fa fa-user-plus fa-fw",
       "children": [],
       "isShow": "1"
     }],

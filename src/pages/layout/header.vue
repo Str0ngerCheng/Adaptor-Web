@@ -1,7 +1,7 @@
 <template>
   <header class="main-header animated" :class="{closeLogo:sidebar.collapsed,mobileLogo:device.isMobile}">
-    <a href="#" class="logo">
-      <span class="logo-lg"><i class="fa fa-diamond"></i><b>SWE-Adaptor</b></span>
+    <a href="http://localhost:9000/Vue-Admin#/" class="logo">
+      <span class="logo-lg"><img src="static/img/iot.png" style="width: 25px;height: 25px;vertical-align:sub" /><b style="padding-left: 10px">GSW Adaptor</b></span>
     </a>
     <nav class="navbar">
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"
