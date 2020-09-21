@@ -2,18 +2,20 @@
   <imp-panel>
     <div class="amap-page-container">
       <!--view-mode="3D" pitch="60" 3D显示-->
-      <el-amap ref="map" vid="amapDemo"  :center="center" :zoom="zoom" :plugin="plugin" :events="events"
-               style="height: 450px">
+      <el-amap ref="map" vid="amapDemo" :center="center" :zoom="zoom" :plugin="plugin" :events="events"
+               style="height:700px" view-mode="3D" pitch="60">
         <el-amap-marker v-for="(marker, index) in markers" :position="marker.position" :key="index">
-          <img @click="handleClick(index)" :src="marker.status===0?'../../../static/img/wrong.png':'../../../static/img/normal.png'"/>
+          <img @click="handleClick(index)"
+               :src="marker.status===0?'../../../static/img/wrong.png':'../../../static/img/normal.png'"/>
         </el-amap-marker>
-        <el-amap-info-window v-for="window in windows"  closeWhenClickMap="true" autoMove="true"
-                             :position="window.position" :offset="window.offset" :visible="window.visible" :key="window.idx">
+        <el-amap-info-window v-for="window in windows" closeWhenClickMap="true" autoMove="true"
+                             :position="window.position" :offset="window.offset" :visible="window.visible"
+                             :key="window.idx">
           <div class="info-middle">
             <h3>设备信息</h3>
-            <p>设备名称：ZigBee-001</p>
+            <p>设备名称：{{window.name}}</p>
             <p>设备位置：{{window.position[0]+" "+window.position[1]}}</p>
-            <p>通信协议：ZigBee</p>
+            <p>通信协议：{{window.protocol}}</p>
             <p>设备状态：{{window.status}}</p>
           </div>
         </el-amap-info-window>
@@ -27,8 +29,8 @@
             </el-col>
             <el-col :span="12">
               <div class="chart-right">
-                <span @click=""><b>5</b>在线</span>
-                <span><b>1</b>离线</span>
+                <span @click=""><b>{{this.status.online}}</b>在线</span>
+                <span><b>{{this.status.offline}}</b>离线</span>
               </div>
             </el-col>
           </el-row>
@@ -42,22 +44,25 @@
 </template>
 <script>
   import echarts from 'echarts'
-  import { on, off } from '../../common/tools'
+  import {on, off} from '../../common/tools'
+  import * as api from "../../api"
+  import * as sensorApi from '../../services/sensor'
+
   export default {
     data() {
       return {
         markers: [],
-        windows:[],
-        currentWindow:{
-          position: [0,0],
+        windows: [],
+        currentWindow: {
+          position: [0, 0],
           visible: false,
           idx: 'window-1'
         },
-        center: [114.552937, 30.455473],
-        zoom: 17,
-        position: [114.549937, 30.455473],
+        center: [114.752937, 31.455473],
+        zoom: 8,
+        position: [114.749937, 31.455473],
         events: {
-          init(o){
+          init(o) {
             console.log(o.getCenter());
           },
           zoomchange: (e) => {
@@ -90,56 +95,75 @@
         ],
         dom: null,
         pieData: [
-          { value: 1, name: '离线' },
-          { value: 5, name: '在线' }
+          {value: this.offline, name: '离线'},
+          {value: this.online, name: '在线'}
         ],
+        status: {
+          online: 0,
+          offline: 0
+        }
       }
     },
-    methods:{
-      handleClick(index){
-        this.currentWindow.visible=false
+    methods: {
+      handleClick(index) {
+        this.currentWindow.visible = false
         this.$nextTick(() => {
           this.currentWindow = this.windows[index];
           this.currentWindow.visible = true;
         });
       },
       initMap() {
-        let basePosition = [114.55107, 30.455473];
-        let num = 2;
-        for (let i = 0 ; i < num ; i++) {
-          this.markers.push({
-            position: [basePosition[0], basePosition[1] + i * 0.0003],
-            status:i===0?0:1,
-            id: 'marker'+i
-          });
+        console.log("initMap start")
+        sensorApi.getAllSensors(api.ALL_SENSOR)
+          .then(res => {
+            for (let i = 0; i < res.total; i++) {
+              if (res.records[i].status == 1) {
+                this.status.online++
+              } else {
+                this.status.offline++
+              }
+              let location = res.records[i].location.split(" ")
+              this.markers.push({
+                position: [location[1], location[0]],
+                status: res.records[i].status,
+                id: "marker" + i
+              });
 
-          this.windows.push({
-            position:[basePosition[0], basePosition[1] + i * 0.0003],
-            offset: [5, -15],
-            status:i===0?'离线':'在线',
-            visible: false,
-            idx: 'window'+i
+              this.windows.push({
+                name: res.records[i].sensorName,
+                position: [location[1], location[0]],
+                offset: [7, -18],
+                status: res.records[i].status === 0 ? '离线' : '在线',
+                visible: false,
+                protocol: res.records[i].protocol,
+                idx: "window" + i
+              });
+            }
+            this.initChart( this.status.online, this.status.offline)
           });
-        }
       },
-      resize () {
+      resize() {
         this.dom.resize()
       },
-      initChart(){
+      initChart(online, offline) {
         this.$nextTick(() => {
+
           let option = {
             tooltip: {
               trigger: 'item',
               formatter: '{b} : {c} ({d}%)',
               position: 'right'
             },
-            color : ['#394b69','#36ab60' ],
+            color: ['#394b69', '#36ab60'],
             series: [
               {
                 type: 'pie',
                 radius: '80%',
                 center: ['50%', '50%'],
-                data: this.pieData,
+                data: [
+                  {value: offline, name: '离线'},
+                  {value: online, name: '在线'}
+                ],
                 // 设置值域的那指向线
                 labelLine: {
                   normal: {
@@ -159,17 +183,14 @@
           this.dom = echarts.init(this.$refs.dom)
           this.dom.setOption(option)
           on(window, 'resize', this.resize)
+
         })
-      },
-      testClick(){
-        console.log("1111111111")
       }
     },
     created() {
       this.initMap()
-      this.initChart()
     },
-    beforeDestroy () {
+    beforeDestroy() {
       off(window, 'resize', this.resize)
     }
   }
@@ -177,13 +198,16 @@
 <style>
   .amap-info-content {
     border-radius: 4px;
+   /* padding: 10px;*/
 
   }
+
   .info-middle {
     font-size: 12px;
     padding: 5px;
     line-height: 20px;
   }
+
   .info-middle h3 {
     height: 2rem;
     color: rgb(45, 140, 240);
@@ -192,28 +216,32 @@
   .info-middle p {
     height: 1.5rem;
   }
-  .el-card.map-card.is-always-shadow{
-    box-shadow:0 2px 12px 0 rgba(0,0,0,.25)
+
+  .el-card.map-card.is-always-shadow {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .25)
   }
-  .map-card{
+
+  .map-card {
     position: absolute;
     right: 20px;
     bottom: 20px;
     opacity: 0.8;
   }
-  .map-card .el-card__header{
+
+  .map-card .el-card__header {
     padding: 10px;
     background: #394b69;
   }
 
-  .map-card .el-card__body{
+  .map-card .el-card__body {
     padding: 0;
   }
 
-  .chart-right{
+  .chart-right {
     right: 10%;
     position: relative;
   }
+
   .chart-right span {
     display: inline-block;
     width: 80px;
@@ -221,17 +249,18 @@
     border-radius: 100%;
     margin-top: 36px;
     line-height: 80px;
-    text-align:center;
+    text-align: center;
   }
+
   .chart-right span:hover {
-    cursor:pointer;
+    cursor: pointer;
   }
 
   .chart-right span:nth-child(1) {
-    border: 3px solid  #36ab60;
+    border: 3px solid #36ab60;
     margin-right: 10px;
     margin-left: 10px;
-    color:  #36ab60;
+    color: #36ab60;
   }
 
   .chart-right span:nth-child(2) {
@@ -243,7 +272,6 @@
     font-size: 32px;
     font-weight: 400;
   }
-
 
 
 </style>

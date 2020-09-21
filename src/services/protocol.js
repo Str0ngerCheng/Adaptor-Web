@@ -1,4 +1,3 @@
-import defaultValue from "./default";
 import axios from "../common/axios";
 
 //前端模拟接口，最终还是调用后端接口。
@@ -20,6 +19,7 @@ export function getSensorList (url,params) {
       })
   })
 }
+
 export function getSensorsByName (url,params) {
   return new Promise((resolve, reject) => {
     axios.get(url,{params}).then(response => {

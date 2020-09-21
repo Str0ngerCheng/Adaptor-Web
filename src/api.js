@@ -6,6 +6,7 @@ export const LOGOUT = CONTEXT + '/logout';
 export const CHANGE_PWD = CONTEXT + '/changePwd';
 
 export const SENSOR_LIST  = CONTEXT + '/sensor/list';
+export const ALL_SENSOR  = CONTEXT + '/sensor/allList';
 export const SENSOR_ADD = CONTEXT + '/sensor/add';
 export const SENSOR_UPDATE = CONTEXT + '/sensor/update';
 export const SENSOR_DELETE  = CONTEXT + '/sensor/Delete';

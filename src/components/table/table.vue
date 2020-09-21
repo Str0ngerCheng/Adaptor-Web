@@ -170,11 +170,9 @@
 
 <script>
   import panel from "../../components/panel.vue"
-  import testData from "../../../static/data/data.json"
   import * as api from "../../api"
   import * as protocolApi from '../../services/protocol'
   import line from '../charts/line.vue'
-  import defaultValue from '../../services/default'
 
   export default {
     components: {
