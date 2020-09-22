@@ -581,15 +581,15 @@ export default {
       "children": [],
       "isShow": "1"
     }, {
-        "id": 106,
-        "parentId": 102,
-        "sort": 0,
-        "name": "RTSP",
-        "href": "/protocol/rtsp",
-        "icon": "fa fa-feed fa-fw",
-        "children": [],
-        "isShow": "1"
-      }],
+      "id": 106,
+      "parentId": 102,
+      "sort": 0,
+      "name": "RTSP",
+      "href": "/protocol/rtsp",
+      "icon": "fa fa-feed fa-fw",
+      "children": [],
+      "isShow": "1"
+    }],
 
     "isShow": "1"
   }, {
@@ -617,6 +617,26 @@ export default {
     "name": "地图",
     "href": "/map",
     "icon": "fa fa-map-marker fa-fw",
+    "children": [{
+      "id": 111,
+      "parentId": 110,
+      "sort": 0,
+      "name": "二维",
+      "href": "/map/2d",
+      "icon": "fa fa-map fa-fw",
+      "children": [],
+      "isShow": "1"
+    }, {
+      "id": 112,
+      "parentId": 110,
+      "sort": 0,
+      "name": "三维",
+      "href": "/map/3d",
+      "icon": "fa fa-globe fa-fw",
+      "children": [],
+      "isShow": "1"
+    }
+    ],
     "isShow": "1"
   }, {
     "id": 6,

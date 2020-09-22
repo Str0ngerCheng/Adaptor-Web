@@ -3,6 +3,8 @@ var utils = require('./utils')
 var config = require('../config/index')
 var vueLoaderConfig = require('./vue-loader.conf')
 
+const cesiumSource = '../node_modules/cesium/Source';
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -16,12 +18,19 @@ module.exports = {
     // path仅仅告诉Webpack结果存储在哪里，然而publicPath项则被许多Webpack的插件用于在生产模式下更新内嵌到css、html文件里的url值。
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: config.dev.assetsPublicPath
+    publicPath: config.dev.assetsPublicPath,
+    sourcePrefix: ' '
+  },
+  //--cesium--配置----------------------------------------
+  amd:{
+    toUrlUndefined: true
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve('src'),
+      //--cesium--配置
+      'cesium': path.resolve(__dirname, cesiumSource)
     }
   },
   module: {
@@ -77,6 +86,9 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[ext]')
         }
       }
-    ]
+    ],
+    //--cesium--配置-------------------------------------
+    //unknownContextRegExp: /^.\/.*$/
+    unknownContextCritical: false,
   }
 }

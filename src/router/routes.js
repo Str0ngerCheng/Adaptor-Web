@@ -15,6 +15,7 @@ import basemap from "../components/amap/basemap.vue";
 import BLE from "../pages/sensors/BLE.vue";
 import NBIOT from "../pages/sensors/nbiot.vue"
 import gcxj from "../pages/sensors/guangchangxiangji.vue"
+import CesiumView from "../components/cesium/cesium.vue";
 
 // Routes
 const routes = [
@@ -35,7 +36,8 @@ const routes = [
       {path: '/protocol/NBIOT', component: NBIOT},
       {path: '/protocol/rtsp', component: hk},
       {path: '/platform/gcxj', component: gcxj},
-      {path: '/map', component: basemap},
+      {path: '/map/2d', component: basemap},
+      {path: '/map/3d', component: CesiumView},
       {path: '/sys/menuList', component: menuList},
       {path: '/sys/roleList', component: role},
       {path: '/sys/userList', component: sysUser},
