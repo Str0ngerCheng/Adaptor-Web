@@ -3,7 +3,7 @@
     <div class="amap-page-container">
       <!--view-mode="3D" pitch="60" 3D显示-->
       <el-amap ref="map" vid="amapDemo" :center="center" :zoom="zoom" :plugin="plugin" :events="events"
-               style="height:900px" view-mode="3D" pitch="60">
+               style="height:800px" view-mode="3D" pitch="60">
         <el-amap-marker v-for="(marker, index) in markers" :position="marker.position" :key="index">
           <img @click="handleClick(index)"
                :src="marker.status===0?'../../../static/img/wrong.png':'../../../static/img/normal.png'"/>
@@ -47,7 +47,6 @@
   import {on, off} from '../../common/tools'
   import * as api from "../../api"
   import * as sensorApi from '../../services/sensor'
-
   export default {
     data() {
       return {
