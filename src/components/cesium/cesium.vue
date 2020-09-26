@@ -8,7 +8,6 @@
 <script>
   import * as Cesium from 'cesium/Cesium';
   import 'cesium/Widgets/widgets.css'
-
   export default {
     name: 'CesiumView',
     data() {

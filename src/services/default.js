@@ -589,37 +589,120 @@ export default {
       "icon": "fa fa-feed fa-fw",
       "children": [],
       "isShow": "1"
+    },{
+      "id": 107,
+      "parentId": 102,
+      "sort": 0,
+      "name": "MAVLink",
+      "href": "/protocol/mavlink",
+      "icon": "fa fa-feed fa-fw",
+      "children": [],
+      "isShow": "1"
+    },{
+      "id": 108,
+      "parentId": 102,
+      "sort": 0,
+      "name": "RFID",
+      "href": "/protocol/rfid",
+      "icon": "fa fa-feed fa-fw",
+      "children": [],
+      "isShow": "1"
+    },{
+      "id": 109,
+      "parentId": 102,
+      "sort": 0,
+      "name": "MODBus",
+      "href": "/protocol/modbus",
+      "icon": "fa fa-feed fa-fw",
+      "children": [],
+      "isShow": "1"
+    },{
+      "id": 110,
+      "parentId": 102,
+      "sort": 0,
+      "name": "MQTT",
+      "href": "/protocol/mqtt",
+      "icon": "fa fa-feed fa-fw",
+      "children": [],
+      "isShow": "1"
     }],
 
     "isShow": "1"
   }, {
-    "id": 107,
+    "id": 120,
     "parentId": null,
     "sort": 4,
     "name": "平台",
     "href": "/platform",
     "icon": "fa fa-cubes fa-fw",
     "children": [{
-      "id": 108,
-      "parentId": 107,
+      "id": 121,
+      "parentId": 120,
       "sort": 0,
       "name": "光场相机",
       "href": "/platform/gcxj",
-      "icon": "fa fa-video-camera fa-fw",
+      "icon": "fa fa-cube fa-fw",
       "children": [],
       "isShow": "1"
-    }],
+    }, {
+        "id": 122,
+        "parentId": 120,
+        "sort": 0,
+        "name": "测量机器人",
+        "href": "/platform/leadorRobot",
+        "icon": "fa fa-cube fa-fw",
+        "children": [],
+        "isShow": "1"
+      },
+      {
+        "id": 123,
+        "parentId": 120,
+        "sort": 0,
+        "name": "无限传感器网路",
+        "href": "/platform/wsn",
+        "icon": "fa fa-cube fa-fw",
+        "children": [],
+        "isShow": "1"
+      },
+      {
+        "id": 124,
+        "parentId": 120,
+        "sort": 0,
+        "name": "RFID微网",
+        "href": "/platform/rfidNetwork",
+        "icon": "fa fa-cube fa-fw",
+        "children": [],
+        "isShow": "1"
+      },{
+        "id": 125,
+        "parentId": 120,
+        "sort": 0,
+        "name": "无人机",
+        "href": "/platform/UAV",
+        "icon": "fa fa-cube fa-fw",
+        "children": [],
+        "isShow": "1"
+      },{
+        "id": 126,
+        "parentId": 120,
+        "sort": 0,
+        "name": "手机众包",
+        "href": "/platform/phone",
+        "icon": "fa fa-cube fa-fw",
+        "children": [],
+        "isShow": "1"
+      }],
     "isShow": "1"
   }, {
-    "id": 110,
+    "id": 130,
     "parentId": null,
     "sort": 5,
     "name": "地图",
     "href": "/map",
     "icon": "fa fa-map-marker fa-fw",
     "children": [{
-      "id": 111,
-      "parentId": 110,
+      "id": 131,
+      "parentId": 130,
       "sort": 0,
       "name": "二维",
       "href": "/map/2d",
@@ -627,8 +710,8 @@ export default {
       "children": [],
       "isShow": "1"
     }, {
-      "id": 112,
-      "parentId": 110,
+      "id": 132,
+      "parentId": 130,
       "sort": 0,
       "name": "三维",
       "href": "/map/3d",

@@ -18,6 +18,7 @@ Vue.prototype.$http = axios
 Vue.axios = axios
 Vue.http = axios;
 
+
 Vue.use(axios);
 Vue.use(Element);
 Vue.use(VueAMap);
