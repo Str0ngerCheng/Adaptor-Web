@@ -204,7 +204,7 @@
         historyData: {},
         websocket: {},
         realTimeData: {
-          obsValue: 0,
+          obsValue: '',
           timestamp: 0
         },
         date:'',
@@ -346,6 +346,7 @@
           obsPropName: ""
         });
         this.websocket.send(jsonstr);
+        this.realTimeData.obsValue=''
         console.log("send message to stop real time data:" + jsonstr);
       },
       websocketOnMessage(e) {

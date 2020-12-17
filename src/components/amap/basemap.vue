@@ -115,6 +115,7 @@
         console.log("initMap start")
         sensorApi.getAllSensors(api.ALL_SENSOR)
           .then(res => {
+            console.log(res)
             for (let i = 0; i < res.total; i++) {
               if (res.records[i].status == 1) {
                 this.status.online++

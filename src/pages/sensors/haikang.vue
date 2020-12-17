@@ -33,8 +33,8 @@
         pubKey: '', // 公钥
         appkey: '',
         secret: '',
-        ip: '',
-        port: '',
+        ip: '202.114.118.60',
+        port: '7781',
         width: 700,
         height: 400, // 弹框高度
         playHeight: 360,
@@ -44,7 +44,7 @@
         buttonIDs: '0,16,256,257,515',
         initCount: 0,
         playMode: 0, // 0 预览 1回放
-        playText: '启动中。。。',
+        playText: '启动中...',
         cameraIndexCode: this.monitorDeviceNo || '' // 监控点编号
       }
     },

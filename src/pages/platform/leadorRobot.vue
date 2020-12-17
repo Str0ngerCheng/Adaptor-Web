@@ -31,7 +31,7 @@
     },
     mounted() {
       //页面初始化的时候持有一个websocket对象
-      this.websocket = new WebSocket(api.ROBOT_WEBSOCKET_URL);
+      this.websocket = new WebSocket(api.RFID_WEBSOCKET_URL);
       //页面刷新的时候需要关闭websocket连接
       window.addEventListener('beforeunload', e => {
         this.websocket.close();
