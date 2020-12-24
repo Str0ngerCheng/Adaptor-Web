@@ -11,6 +11,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import ImpPanel from "./components/panel.vue";
 import VueAMap from 'vue-amap';
 import VideoPlayer from 'vue-video-player'
+require('promise.prototype.finally').shim()
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 

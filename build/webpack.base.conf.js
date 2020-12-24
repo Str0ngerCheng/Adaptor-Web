@@ -11,7 +11,7 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js',
+    app: ['babel-polyfill','./src/main.js'],
     vendor: [ 'vue', 'vuex', 'vue-router', 'element-ui' ]  //第三方库和框架
   },
   output: {
@@ -57,7 +57,9 @@ module.exports = {
         include: [
           resolve('src'),
           resolve('test'),
-          resolve('/node_modules/.2.3.9@element-ui/src'),
+          resolve('static'),
+          resolve('/node_modules/element-ui/src'),
+          // resolve('/node_modules/.2.3.9@element-ui/src'),
           resolve('/node_modules/.2.3.9@element-ui/packages'),
           resolve('/node_modules/.4.3.0@vuex-router-sync')
         ]

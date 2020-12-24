@@ -14,7 +14,6 @@
   "dependencies": {
     "animate.css": "3.5.2",
     "axios": "^0.16.2",
-    "babel-polyfill": "^6.26.0",
     "cesium": "^1.74.0",
     "echarts": "^3.5.1",
     "element-ui": "^2.3.9",
@@ -22,6 +21,7 @@
     "jquery": "^3.5.1",
     "mqtt": "^4.2.1",
     "npm": "^6.14.8",
+    "promise.prototype.finally": "^3.1.2",
     "stylus": "^0.54.8",
     "vue": "^2.4.2",
     "vue-amap": "^0.5.10",

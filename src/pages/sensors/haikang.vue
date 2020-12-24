@@ -1,428 +1,566 @@
 <template>
   <imp-panel>
-    <div id="videoPlayerBox" ref="videoPlayerBox"
-         :style="{'width': '100%', 'height': height + 'px', 'top': top + 'px', 'left': left + 'px'}">
-      <div class="header">
-        <div class="el-dialog__title" @mousedown="onmousedown" @mouseleave="onmouseleave">
-          <!-- {{ monitorDeviceName }} -->
-          监控点
-        </div>
-        <span class="closeBtn" @click="handleClose">×</span>
-      </div>
-      <div class="topbutton">
-        <span class="topBtns" :class="playMode === 0 ? 'activeBtn' : ''" @click="previewClick">预览</span>
-        <span class="topBtns" :class="playMode === 1 ? 'activeBtn' : ''" @click="playBack">回放</span>
-      </div>
-      <div id="playBox" v-html="oWebControl === null ? playText : ''">
-      </div>
+    <div class="left">
+      <div id="divPlugin" class="plugin"></div>
+      <fieldset class="login">
+        <legend>登录</legend>
+        <table cellpadding="0" cellspacing="3" border="0">
+          <tr>
+            <td class="tt">IP地址</td>
+            <td><input id="loginip" type="text" class="txt" value="192.168.1.105"/></td>
+            <td class="tt">端口号</td>
+            <td><input id="port" type="text" class="txt" value="80"/></td>
+          </tr>
+          <tr>
+            <td class="tt">用户名</td>
+            <td><input id="username" type="text" class="txt" value="admin"/></td>
+            <td class="tt">密码</td>
+            <td><input id="password" type="password" class="txt" value="swe12345"/></td>
+          </tr>
+          <tr>
+            <td class="tt">设备端口</td>
+            <td colspan="2"><input id="deviceport" type="text" class="txt"/>（可选参数）</td>
+            <td>
+              窗口分割数&nbsp;
+              <select class="sel2" onchange="changeWndNum(this.value);">
+                <option value="1">1x1</option>
+                <option value="2" selected>2x2</option>
+                <option value="3">3x3</option>
+                <option value="4">4x4</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">RTSP端口</td>
+            <td colspan="3"><input id="rtspport" type="text" class="txt"/>（可选参数）</td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <input type="button" class="btn" value="登录" onclick="clickLogin();"/>
+              <input type="button" class="btn" value="退出" onclick="clickLogout();"/>
+              <input type="button" class="btn2" value="获取基本信息" onclick="clickGetDeviceInfo();"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">已登录设备</td>
+            <td>
+              <select id="ip" class="sel" onchange="getChannelInfo();getDevicePort();"></select>
+            </td>
+            <td class="tt">通道列表</td>
+            <td>
+              <select id="channels" class="sel"></select>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset class="ipchannel">
+        <legend>数字通道</legend>
+        <table width="100%" cellpadding="0" cellspacing="3" border="0">
+          <tr>
+            <td><input type="button" class="btn" value="获取数字通道列表" onclick="clickGetDigitalChannelInfo();"/></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="digitaltdiv">
+                <table id="digitalchannellist" class="digitalchannellist" cellpadding="0" cellspacing="0"
+                       border="0"></table>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset class="localconfig">
+        <legend>本地配置</legend>
+        <table cellpadding="0" cellspacing="3" border="0">
+          <tr>
+            <td class="tt">播放性能</td>
+            <td>
+              <select id="netsPreach" name="netsPreach" class="sel">
+                <option value="0">最短延时</option>
+                <option value="1">实时性好</option>
+                <option value="2">均衡</option>
+                <option value="3">流畅性好</option>
+              </select>
+            </td>
+            <td class="tt">图像尺寸</td>
+            <td>
+              <select id="wndSize" name="wndSize" class="sel">
+                <option value="0">充满</option>
+                <option value="1">4:3</option>
+                <option value="2">16:9</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">规则信息</td>
+            <td>
+              <select id="rulesInfo" name="rulesInfo" class="sel">
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
+              </select>
+            </td>
+            <td class="tt">抓图文件格式</td>
+            <td>
+              <select id="captureFileFormat" name="captureFileFormat" class="sel">
+                <option value="0">JPEG</option>
+                <option value="1">BMP</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">录像文件打包大小</td>
+            <td>
+              <select id="packSize" name="packSize" class="sel">
+                <option value="0">256M</option>
+                <option value="1">512M</option>
+                <option value="2">1G</option>
+              </select>
+            </td>
+            <td class="tt">协议类型</td>
+            <td>
+              <select id="protocolType" name="protocolType" class="sel">
+                <option value="0">TCP</option>
+                <option value="2">UDP</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">录像文件保存路径</td>
+            <td colspan="4"><input id="recordPath" type="text" class="txt"/>
+              <input type="button" class="btn"
+                     value="浏览"
+                     onclick="clickOpenFileDlg('recordPath', 0);"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">回放下载保存路径</td>
+            <td colspan="3"><input id="downloadPath" type="text" class="txt"/>&nbsp;<input type="button" class="btn"
+                                                                                           value="浏览"
+                                                                                           onclick="clickOpenFileDlg('downloadPath', 0);"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">预览抓图保存路径</td>
+            <td colspan="3"><input id="previewPicPath" type="text" class="txt"/>&nbsp;<input type="button" class="btn"
+                                                                                             value="浏览"
+                                                                                             onclick="clickOpenFileDlg('previewPicPath', 0);"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">回放抓图保存路径</td>
+            <td colspan="3"><input id="playbackPicPath" type="text" class="txt"/>&nbsp;<input type="button" class="btn"
+                                                                                              value="浏览"
+                                                                                              onclick="clickOpenFileDlg('playbackPicPath', 0);"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">回放剪辑保存路径</td>
+            <td colspan="3"><input id="playbackFilePath" type="text" class="txt"/>&nbsp;<input type="button" class="btn"
+                                                                                               value="浏览"
+                                                                                               onclick="clickOpenFileDlg('playbackFilePath', 0);"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">设备抓图保存路径</td>
+            <td colspan="3"><input id="devicePicPath" type="text" class="txt"/>&nbsp;<input type="button" class="btn"
+                                                                                            value="浏览"
+                                                                                            onclick="clickOpenFileDlg('devicePicPath', 0);"/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4"><input type="button" class="btn" value="获取" onclick="clickGetLocalCfg();"/>&nbsp;<input
+              type="button" class="btn" value="设置" onclick="clickSetLocalCfg();"/></td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+    <div class="left">
+      <fieldset class="preview">
+        <legend>预览</legend>
+        <table cellpadding="0" cellspacing="3" border="0">
+          <tr>
+            <td class="tt">码流类型</td>
+            <td>
+              <select id="streamtype" class="sel">
+                <option value="1">主码流</option>
+                <option value="2">子码流</option>
+                <option value="3">第三码流</option>
+                <option value="4">转码码流</option>
+              </select>
+            </td>
+            <td>
+              <input type="button" class="btn" value="开始预览" onclick="clickStartRealPlay();"/>
+              <input type="button" class="btn" value="停止预览" onclick="clickStopRealPlay();"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">音量</td>
+            <td>
+              <input type="text" id="volume" class="txt" value="50" maxlength="3"/>&nbsp;<input type="button"
+                                                                                                class="btn" value="设置"
+                                                                                                onclick="clickSetVolume();"/>（范围：0~100）
+            </td>
+            <td>
+              <input type="button" class="btn" value="打开声音" onclick="clickOpenSound();"/>
+              <input type="button" class="btn" value="关闭声音" onclick="clickCloseSound();"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">对讲通道</td>
+            <td>
+              <select id="audiochannels" class="sel">
+
+              </select>
+              <input type="button" class="btn" value="获取通道" onclick="clickGetAudioInfo();"/>
+            </td>
+            <td>
+              <input type="button" class="btn" value="开始对讲" onclick="clickStartVoiceTalk();"/>
+              <input type="button" class="btn" value="停止对讲" onclick="clickStopVoiceTalk();"/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <input type="button" class="btn" value="抓图" onclick="clickCapturePic();"/>
+              <input type="button" class="btn" value="开始录像" onclick="clickStartRecord('realplay');"/>
+              <input type="button" class="btn" value="停止录像" onclick="clickStopRecord('realplay');"/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <input type="button" class="btn2" value="启用电子放大" onclick="clickEnableEZoom();"/>
+              <input type="button" class="btn2" value="禁用电子放大" onclick="clickDisableEZoom();"/>
+              <input type="button" class="btn2" value="启用3D放大" onclick="clickEnable3DZoom();"/>
+              <input type="button" class="btn2" value="禁用3D放大" onclick="clickDisable3DZoom();"/>
+              <input type="button" class="btn" value="全屏" onclick="clickFullScreen();"/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              分辨率：<input id="resolutionWidth" type="text" class="txt"/> x <input id="resolutionHeight" type="text"
+                                                                                 class="txt"/>
+              <input type="button" class="btn" value="设备抓图" onclick="clickDeviceCapturePic();"/>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <!--<fieldset class="draw">
+        <legend>绘图</legend>
+        <table cellpadding="0" cellspacing="3" border="0">
+          <tr>
+            <td>
+              <input type="button" class="btn" value="启用绘制" onclick="clickEnableDraw();"/>
+              <input type="button" class="btn" value="禁用绘制" onclick="clickDisableDraw();"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              图形ID：<input id="snapId" type="text" class="txt"/>
+              名称：<input id="snapName" type="text" class="txt"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="button" class="btn" value="添加图形" onclick="clickAddSnapPolygon()"/>
+              <input type="button" class="btn" value="删除图形" onclick="clickDelSnapPolygon()"/>
+              <input type="button" class="btn" value="编辑图形" onclick="clickEditSnapPolygon()"/>
+              <input type="button" class="btn" value="停止编辑" onclick="clickStopSnapPolygon()"/>
+              <input type="button" class="btn" value="获取图形" onclick="clickGetSnapPolygon()"/>
+              <input type="button" class="btn" value="设置图形" onclick="clickSetSnapPolygon()"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="button" class="btn" value="清空图形" onclick="clickDelAllSnapPolygon()"/>
+            </td>
+          </tr>
+        </table>
+      </fieldset>-->
+      <fieldset class="ptz">
+        <legend>云台控制</legend>
+        <table cellpadding="0" cellspacing="3" border="0" class="left">
+          <tr>
+            <td>
+              <input type="button" class="btn" value="左上" onmousedown="mouseDownPTZControl(5);"
+                     onmouseup="mouseUpPTZControl();"/>
+              <input type="button" class="btn" value="上" onmousedown="mouseDownPTZControl(1);"
+                     onmouseup="mouseUpPTZControl();"/>
+              <input type="button" class="btn" value="右上" onmousedown="mouseDownPTZControl(7);"
+                     onmouseup="mouseUpPTZControl();"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="button" class="btn" value="左" onmousedown="mouseDownPTZControl(3);"
+                     onmouseup="mouseUpPTZControl();"/>
+              <input type="button" class="btn" value="自动" onclick="mouseDownPTZControl(9);"/>
+              <input type="button" class="btn" value="右" onmousedown="mouseDownPTZControl(4);"
+                     onmouseup="mouseUpPTZControl();"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="button" class="btn" value="左下" onmousedown="mouseDownPTZControl(6);"
+                     onmouseup="mouseUpPTZControl();"/>
+              <input type="button" class="btn" value="下" onmousedown="mouseDownPTZControl(2);"
+                     onmouseup="mouseUpPTZControl();"/>
+              <input type="button" class="btn" value="右下" onmousedown="mouseDownPTZControl(8);"
+                     onmouseup="mouseUpPTZControl();"/>
+            </td>
+          </tr>
+        </table>
+        <table cellpadding="0" cellspacing="3" border="0" class="left">
+          <tr>
+            <td class="tt">云台速度</td>
+            <td>
+              <select id="ptzspeed" class="sel">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">预置点号</td>
+            <td><input id="preset" type="text" class="txt" value="1"/></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="button" class="btn" value="设置" onclick="clickSetPreset();"/>
+              <input type="button" class="btn" value="调用" onclick="clickGoPreset();"/>
+            </td>
+          </tr>
+        </table>
+        <table cellpadding="0" cellspacing="3" border="0" class="left">
+          <tr>
+            <td class="tt"><input type="button" class="btn2" value="变倍+" onmousedown="PTZZoomIn()"
+                                  onmouseup="PTZZoomStop()"></td>
+            <td><input type="button" class="btn2" value="变倍-" onmousedown="PTZZoomout()" onmouseup="PTZZoomStop()"></td>
+          </tr>
+          <tr>
+            <td class="tt"><input type="button" class="btn2" value="变焦+" onmousedown="PTZFocusIn()"
+                                  onmouseup="PTZFoucusStop()"></td>
+            <td><input type="button" class="btn2" value="变焦-" onmousedown="PTZFoucusOut()" onmouseup="PTZFoucusStop()">
+            </td>
+          </tr>
+          <tr>
+            <td class="tt"><input type="button" class="btn2" value="光圈+" onmousedown="PTZIrisIn()"
+                                  onmouseup="PTZIrisStop()"></td>
+            <td><input type="button" class="btn2" value="光圈-" onmousedown="PTZIrisOut()" onmouseup="PTZIrisStop()"></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset class="playback">
+        <legend>回放</legend>
+        <table width="100%" cellpadding="0" cellspacing="3" border="0">
+          <tr>
+            <td class="tt">码流类型</td>
+            <td>
+              <select id="record_streamtype" class="sel">
+                <option value="1">主码流</option>
+                <option value="2">子码流</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">开始时间</td>
+            <td>
+              <input id="starttime" type="text" class="txt" value="2013-12-10 00:00:00"/>（时间格式：2013-11-11 12:34:56）
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">结束时间</td>
+            <td>
+              <input id="endtime" type="text" class="txt" value="2013-12-11 23:59:59"/>
+              <input type="button" class="btn" value="搜索" onclick="clickRecordSearch(0);"/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div id="searchdiv" class="searchdiv">
+                <table id="searchlist" class="searchlist" cellpadding="0" cellspacing="0" border="0"></table>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="button" class="btn2" value="开始回放" onclick="clickStartPlayback();"/>
+              <input type="button" class="btn2" value="停止回放" onclick="clickStopPlayback();"/>
+              <input type="button" class="btn" value="倒放" onclick="clickReversePlayback();"/>
+              <input type="button" class="btn" value="单帧" onclick="clickFrame();"/>
+              <input id="transstream" type="checkbox" class="vtop"/>&nbsp;启用转码码流
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="button" class="btn" value="暂停" onclick="clickPause();"/>
+              <input type="button" class="btn" value="恢复" onclick="clickResume();"/>
+              <input type="button" class="btn" value="慢放" onclick="clickPlaySlow();"/>
+              <input type="button" class="btn" value="快放" onclick="clickPlayFast();"/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="button" class="btn" value="抓图" onclick="clickCapturePic();"/>
+              <input type="button" class="btn2" value="开始剪辑" onclick="clickStartRecord('playback');"/>
+              <input type="button" class="btn2" value="停止剪辑" onclick="clickStopRecord('playback');"/>
+              <input type="button" class="btn2" value="OSD时间" onclick="clickGetOSDTime();"/>&nbsp;<input id="osdtime"
+                                                                                                         type="text"
+                                                                                                         class="txt"
+                                                                                                         readonly/>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset class="maintain">
+        <legend>系统维护</legend>
+        <table width="100%" cellpadding="0" cellspacing="3" border="0">
+          <tr>
+            <td>
+              <input type="button" class="btn2" value="导出配置文件" onclick="clickExportDeviceConfig();"/>
+              <input type="button" class="btn2" value="检查插件版本" onclick="clickCheckPluginVersion();"/>
+              <input type="button" class="btn2" value="远程配置库" onclick="clickRemoteConfig();"/>
+              <input type="button" class="btn2" value="恢复默认参数" onclick="clickRestoreDefault();"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input id="configFile" type="text" class="txt"/>&nbsp;<input type="button" class="btn" value="浏览"
+                                                                           onclick="clickOpenFileDlg('configFile', 1);"/>&nbsp;<input
+              type="button" class="btn2" value="导入配置文件" onclick="clickImportDeviceConfig();"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input id="upgradeFile" type="text" class="txt"/>&nbsp;<input type="button" class="btn" value="浏览"
+                                                                            onclick="clickOpenFileDlg('upgradeFile', 1);"/>&nbsp;<input
+              type="button" class="btn2" value="升级" onclick="clickStartUpgrade();"/>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <!--<fieldset class="ipparse">
+        <legend>设备IP解析</legend>
+        <table cellpadding="0" cellspacing="3" border="0">
+          <tr>
+            <td class="tt">模式</td>
+            <td colspan="3">
+              <select id="devicemode" class="sel" onchange="changeIPMode(this.value);">
+                <option value="1">IPServer</option>
+                <option value="2">HiDDNS</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tt">服务器地址</td>
+            <td><input id="serveraddress" type="text" class="txt" value=""/></td>
+            <td class="tt">端口号</td>
+            <td><input id="serverport" type="text" class="txt" value="7071"/></td>
+          </tr>
+          <tr>
+            <td class="tt">设备标识</td>
+            <td><input id="deviceid" type="text" class="txt" value=""/></td>
+            <td class="tt">&nbsp;</td>
+            <td><input type="button" class="btn" value="获取设备IP" onclick="clickGetDeviceIP();"/></td>
+          </tr>
+        </table>
+      </fieldset>-->
+    </div>
+    <div class="left">
+      <fieldset class="operate">
+        <legend>操作信息</legend>
+        <div id="opinfo" class="opinfo"></div>
+      </fieldset>
+      <!-- <fieldset class="callback">
+         <legend>事件回调信息</legend>
+         <div id="cbinfo" class="cbinfo"></div>
+       </fieldset>-->
     </div>
   </imp-panel>
 </template>
-
 <script>
   export default {
-    name: 'haikang',
-    props: [
-      'videoVisible',
-      'monitorDeviceNo',
-      'monitorDeviceName'
-    ],
-    data() {
-      return {
-        oWebControl: null,
-        pubKey: '', // 公钥
-        appkey: '',
-        secret: '',
-        ip: '202.114.118.60',
-        port: '7781',
-        width: 700,
-        height: 400, // 弹框高度
-        playHeight: 360,
-        layout: '1x1',
-        left: '',
-        top: '',
-        buttonIDs: '0,16,256,257,515',
-        initCount: 0,
-        playMode: 0, // 0 预览 1回放
-        playText: '启动中...',
-        cameraIndexCode: this.monitorDeviceNo || '' // 监控点编号
+    name: "haikang",
+    mounted() {
+      var g_iWndIndex = 0; //可以不用设置这个变量，有窗口参数的接口中，不用传值，开发包会默认使用当前选择窗口
+      // 检查插件是否已经安装过
+      var iRet = WebVideoCtrl.I_CheckPluginInstall();
+      if (-1 == iRet) {
+        alert("您还未安装过插件，双击开发包目录里的WebComponentsKit.exe安装！");
+        return;
       }
-    },
-    methods: {
-      handleClose() {
-        if (this.oWebControl) {
-          this.oWebControl.JS_RequestInterface({
-            funcName: "stopAllPreview"
-          });
-          this.oWebControl.JS_HideWnd();
-          this.oWebControl.JS_Disconnect().then(
-            () => {  // 断开与插件服务连接成功
-            },
-            () => {  // 断开与插件服务连接失败
-            });
-          this.oWebControl = null;
-        }
-        this.$emit('close');
-      },
-      // 推送消息
-      cbIntegrationCallBack(oData) {
-        console.log(oData, '推送消息');
-      },
-      // RSA加密
-      setEncrypt (value) {
-        /* eslint-disable */
-        let encrypt = new JSEncrypt();
-        encrypt.setPublicKey(this.pubKey);
-        return encrypt.encrypt(value);
-      },
-      initPlugin(callback) {
-        /* eslint-disable */
-        let that = this;
-        this.oWebControl = new WebControl({
-          szPluginContainer: "playBox",                       // 指定容器id
-          iServicePortStart: 15900,                           // 指定起止端口号，建议使用该值
-          iServicePortEnd: 15909,
-          szClassId: "23BF3B0A-2C56-4D97-9C03-0CB103AA8F11",  // 用于IE10使用ActiveX的clsid
-          cbConnectSuccess: function () {                     // 创建WebControl实例成功
-            that.oWebControl.JS_StartService("window", {      // WebControl实例创建成功后需要启动服务
-              dllPath: "./VideoPluginConnect.dll"             // 值"./VideoPluginConnect.dll"写死
-            }).then(function () {                             // 启动插件服务成功
-              that.oWebControl.JS_SetWindowControlCallback({  // 设置消息回调
-                cbIntegrationCallBack: that.cbIntegrationCallBack
-              });
 
-              that.oWebControl.JS_CreateWnd("playBox", that.width, that.playHeight).then(function () { // JS_CreateWnd创建视频播放窗口，宽高可设定
-                that.init(callback);  // 创建播放实例成功后初始化
-              });
-            }, function () { // 启动插件服务失败
-            });
-          },
-          cbConnectError: function () { // 创建WebControl实例失败
-            that.oWebControl = null;
-            that.playText = '插件未启动，正在尝试启动，请稍候...';
-            WebControl.JS_WakeUp("VideoWebPlugin://"); // 程序未启动时执行error函数，采用wakeup来启动程序
-            that.initCount++;
-            if (that.initCount < 3) {
-              setTimeout(function () {
-                that.initPlugin();
-              }, 3000)
-            } else {
-              that.playText = '插件启动失败，请检查插件是否安装！<a target="_blank" style="color: #30a8ff;text-decoration: underline;" href="http://xx.com/VideoWebPlugin.zip">下载地址(软件大小：62.7MB)</a>';
-            }
-          },
-          cbConnectClose: function (bNormalClose) {
-            // 异常断开：bNormalClose = false
-            // JS_Disconnect正常断开：bNormalClose = true
-            console.log("cbConnectClose");
-            that.oWebControl = null;
+      // 初始化插件参数及插入插件
+      WebVideoCtrl.I_InitPlugin(500, 300, {
+        bWndFull: true,     //是否支持单窗口双击全屏，默认支持 true:支持 false:不支持
+        iPackageType: 2,    //2:PS 11:MP4
+        iWndowType: 2,
+        cbSelWnd: function (xmlDoc) {
+          g_iWndIndex = parseInt($(xmlDoc).find("SelectWnd").eq(0).text(), 10);
+          var szInfo = "当前选择的窗口编号：" + g_iWndIndex;
+          showCBInfo(szInfo);
+        },
+        cbDoubleClickWnd: function (iWndIndex, bFullScreen) {
+          var szInfo = "当前放大的窗口编号：" + iWndIndex;
+          if (!bFullScreen) {
+            szInfo = "当前还原的窗口编号：" + iWndIndex;
           }
-        });
-      },
-      // 获取公钥
-      getPubKey (callback) {
-        this.oWebControl.JS_RequestInterface({
-          funcName: "getRSAPubKey",
-          argument: JSON.stringify({
-            keyLength: 1024
-          })
-        }).then((oData) => {
-          if (oData.responseMsg.data) {
-            this.pubKey = oData.responseMsg.data;
-            callback()
+          showCBInfo(szInfo);
+
+          // 此处可以处理单窗口的码流切换
+          /*if (bFullScreen) {
+              clickStartRealPlay(1);
+          } else {
+              clickStartRealPlay(2);
+          }*/
+        },
+        cbEvent: function (iEventType, iParam1, iParam2) {
+          if (2 == iEventType) {// 回放正常结束
+            showCBInfo("窗口" + iParam1 + "回放结束！");
+          } else if (-1 == iEventType) {
+            showCBInfo("设备" + iParam1 + "网络错误！");
+          } else if (3001 == iEventType) {
+            clickStopRecord(g_szRecordType, iParam1);
           }
-        })
-      },
-      init(callback) {
-        let that = this;
-        this.getPubKey(() => {
-          //  请自行修改以下变量值
-          let appkey = this.appkey;                           // 综合安防管理平台提供的appkey，必填
-          let secret = that.setEncrypt(this.secret);// 综合安防管理平台提供的secret，必填
-          let ip = this.ip;                           // 综合安防管理平台IP地址，必填
-          let playMode = this.playMode;                                  // 初始播放模式：0-预览，1-回放
-          let port = 443;                                    // 综合安防管理平台端口，若启用HTTPS协议，默认443
-          let snapDir = "D:\\SnapDir";                       // 抓图存储路径
-          let videoDir = "D:\\VideoDir";                     // 紧急录像或录像剪辑存储路径
-          let layout = this.layout;                          // playMode指定模式的布局
-          let enableHTTPS = 1;                               // 是否启用HTTPS协议与综合安防管理平台交互，是为1，否为0
-          let encryptedFields = 'secret';					   				 // 加密字段，默认加密领域为secret
-          let showToolbar = 1;                               // 是否显示工具栏，0-不显示，非0-显示
-          let showSmart = 1;                                 // 是否显示智能信息（如配置移动侦测后画面上的线框），0-不显示，非0-显示
-          let buttonIDs = this.buttonIDs;                    // 自定义工具条按钮
-          // /// 请自行修改以上变量值
-          that.oWebControl.JS_RequestInterface({
-            funcName: "init",
-            argument: JSON.stringify({
-              appkey: appkey,                            // API网关提供的appkey
-              secret: secret,                            // API网关提供的secret
-              ip: ip,                                    // API网关IP地址
-              playMode: playMode,                        // 播放模式（决定显示预览还是回放界面）
-              port: port,                                // 端口
-              snapDir: snapDir,                          // 抓图存储路径
-              videoDir: videoDir,                        // 紧急录像或录像剪辑存储路径
-              layout: layout,                            // 布局
-              enableHTTPS: enableHTTPS,                  // 是否启用HTTPS协议
-              encryptedFields: encryptedFields,          // 加密字段
-              showToolbar: showToolbar,                  // 是否显示工具栏
-              showSmart: showSmart,                      // 是否显示智能信息
-              buttonIDs: buttonIDs                       // 自定义工具条按钮
-            })
-          }).then((oData) => {
-            that.oWebControl.JS_Resize(that.width, that.playHeight);  // 初始化后resize一次，规避firefox下首次显示窗口后插件窗口未与DIV窗口重合问题
-            if (callback) {
-              callback();
-            }
-          });
-        });
-      },
-      // 视频预览功能
-      previewClick() {
-        if (!this.oWebControl) {
-          return;
-        }
-        // 如果是回放，重新初始化
-        if (this.playMode === 1) {
-          this.playMode = 0;
-          this.oWebControl.JS_HideWnd();
-          this.initPlugin(() => {
-            this.previewVideo();
-          });
+        },
+        cbRemoteConfig: function () {
+          showCBInfo("关闭远程配置库！");
+        },
+        cbInitPluginComplete: function () {
+          WebVideoCtrl.I_InsertOBJECTPlugin("divPlugin");
 
-        } else if (this.playMode === 0) {
-          this.previewVideo();
-        }
-      },
-      previewVideo() {
-        let cameraIndexCode = this.cameraIndexCode;             // 获取输入的监控点编号值，必填
-        let streamMode = 0;                                     // 主子码流标识：0-主码流，1-子码流
-        let transMode = 0;                                      // 传输协议：0-UDP，1-TCP
-        let gpuMode = 0;                                        // 是否启用GPU硬解，0-不启用，1-启用
-        let wndId = -1;                                         // 播放窗口序号（在2x2以上布局下可指定播放窗口）
-
-        this.oWebControl.JS_RequestInterface({
-          funcName: "startPreview",
-          argument: JSON.stringify({
-            cameraIndexCode: cameraIndexCode.trim(),        // 监控点编号
-            streamMode: streamMode,                         // 主子码流标识
-            transMode: transMode,                           // 传输协议
-            gpuMode: gpuMode,                               // 是否开启GPU硬解
-            wndId: wndId                                    // 可指定播放窗口
-          })
-        })
-      },
-      // 回放
-      playBack() {
-        if (!this.oWebControl) {
-          return;
-        }
-        // 如果是预览
-        if (this.playMode === 0) {
-          this.playMode = 1;
-          this.oWebControl.JS_HideWnd();
-          this.initPlugin(() => {
-            this.backVideo();
-          });
-        } else if (this.playMode === 1) {
-          this.backVideo();
-        }
-      },
-      backVideo() {
-        let cameraIndexCode = this.cameraIndexCode;
-        // 前30天
-        let date = new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000);
-        let month = date.getMonth() + 1 < 10 ? ('0' + (date.getMonth() + 1)) : (date.getMonth()+ 1);
-        // 开始时间当天00点
-        let str = date.getFullYear() + '/' + month + '/' + date.getDate() + ' 00:00:00'
-        let startTime = String(parseInt(new Date(str).getTime() / 1000) -  3 * 60 * 60);
-        let endTime = String(parseInt(date.getTime() / 1000));
-        this.oWebControl.JS_RequestInterface({
-          funcName: "startPlayback",
-          argument: JSON.stringify({
-            cameraIndexCode: cameraIndexCode.trim(), // 监控点编号
-            startTimeStamp: startTime, // 录像查询开始时间戳，单位：秒
-            endTimeStamp: endTime, // 录像查询结束时间戳，单位：秒
-            recordLocation: 1, // 录像存储类型 0-中心存储 1-设备存储
-            transMode: 0, // 传输协议 ，0-UDP 1-TCP
-            gpuMode: 0, // 是否开启 GPU 硬解，0-不开启 1-开启
-            wndId: -1                         //可指定播放窗口
-          })
-        });
-      },
-      // 设置窗口裁剪，当因滚动条滚动导致窗口需要被遮住的情况下需要JS_CuttingPartWindow部分窗口
-      setWndCover() {
-        let iWidth = $(window).width();
-        let iHeight = $(window).height();
-        let oDivRect = $("#playBox").get(0).getBoundingClientRect();
-        let iCoverLeft = (oDivRect.left < 0) ? Math.abs(oDivRect.left) : 0;
-        let iCoverTop = (oDivRect.top < 0) ? Math.abs(oDivRect.top) : 0;
-        let iCoverRight = (oDivRect.right - iWidth > 0) ? Math.round(oDivRect.right - iWidth) : 0;
-        let iCoverBottom = (oDivRect.bottom - iHeight > 0) ? Math.round(oDivRect.bottom - iHeight) : 0;
-
-        iCoverLeft = (iCoverLeft > this.width) ? this.width : iCoverLeft;
-        iCoverTop = (iCoverTop > this.playHeight) ? this.playHeight : iCoverTop;
-        iCoverRight = (iCoverRight > this.width) ? this.width : iCoverRight;
-        iCoverBottom = (iCoverBottom > this.playHeight) ? this.playHeight : iCoverBottom;
-
-        this.oWebControl.JS_RepairPartWindow(0, 0, (this.width + 1), this.playHeight);    // 多1个像素点防止还原后边界缺失一个像素条
-        if (iCoverLeft != 0) {
-          this.oWebControl.JS_CuttingPartWindow(0, 0, iCoverLeft, this.playHeight);
-        }
-        if (iCoverTop != 0) {
-          this.oWebControl.JS_CuttingPartWindow(0, 0, (this.width + 1), iCoverTop);    // 多剪掉一个像素条，防止出现剪掉一部分窗口后出现一个像素条
-        }
-        if (iCoverRight != 0) {
-          this.oWebControl.JS_CuttingPartWindow(this.width - iCoverRight, 0, iCoverRight, this.playHeight);
-        }
-        if (iCoverBottom != 0) {
-          this.oWebControl.JS_CuttingPartWindow(0, this.playHeight - iCoverBottom, this.width, iCoverBottom);
-        }
-      },
-      // 拖拽窗口
-      onmousedown (e) {
-        let that = this;
-        let cWidth = document.body.clientWidth;
-        let cHeight = document.body.clientHeight;
-        this.$refs.videoPlayerBox.onmousemove = function (el) {
-          let ev = el || window.event;
-          ev.preventDefault();
-          // 解决点击标题窗口抖动的问题
-          if (Math.abs(ev.movementX) === 0 && Math.abs(ev.movementY) === 0) {
+          // 检查插件是否最新
+          if (-1 == WebVideoCtrl.I_CheckPluginVersion()) {
+            alert("检测到新的插件版本，双击开发包目录里的WebComponentsKit.exe升级！");
             return;
           }
-          that.left += ev.movementX;
-          that.top += ev.movementY;
-          // 顶部不能超出，左侧、右侧、底部可以超出一半
-          if (that.top < 0) {
-            that.top = 0;
-          }
-          if (that.top > (cHeight - that.height / 2)) {
-            that.top = cHeight - that.height / 2;
-          }
-          if (that.left < -that.width / 2) {
-            that.left = -that.width / 2;
-          }
-          if (that.left > (cWidth - that.width / 2)) {
-            that.left = (cWidth - that.width / 2);
-          }
-          that.oWebControl.JS_Resize(that.width, that.playHeight);
-        }
-        this.$refs.videoPlayerBox.onmouseup = function () {
-          this.onmousemove = null;
-          this.onmouseup = null;
-        }
-        // 阻止默认事件
-        if (e.preventDefault) {
-          e.preventDefault()
-        } else {
-          return false
-        }
-      },
-      onmouseleave(e) {
-        // 拖拽过快鼠标划出标题位置，重新拖拽是，鼠标还未移入标题，由于上一次的onmouseup方法没有执行，导致鼠标靠近弹框，弹框移动，解决方法，给onmousemove和onmouseup赋值为null
-        this.$refs.videoPlayerBox.onmousemove = null;
-        this.$refs.videoPlayerBox.onmouseup = null;
-        // 解决拖拽过快，播放器残影问题
-        this.oWebControl.JS_Resize(this.width, this.playHeight);
-      }
-    },
-    mounted() {
-      let hksystem = JSON.parse(sessionStorage.getItem('hksystem'));
-      this.appkey = hksystem.appKey;
-      this.secret = hksystem.appSecret;
-      this.ip = hksystem.host.split(':')[0];
-      this.port = hksystem.host.split(':')[1];
-      // 设置top left
-      let bodyW = document.body.clientWidth;
-      let bodyH = document.body.clientHeight;
-      this.left = bodyW / 2 - this.width / 2;
-      this.top = bodyH / 2 - this.height / 2;
-
-      this.initPlugin(() => {
-        this.previewVideo();
-      });
-      // 监听resize事件，使插件窗口尺寸跟随DIV窗口变化
-      $(window).resize(() => {
-        if (this.oWebControl != null) {
-          this.oWebControl.JS_Resize(this.width, this.playHeight);
-          this.setWndCover();
         }
       });
 
-      // 监听滚动条scroll事件，使插件窗口跟随浏览器滚动而移动
-      $(window).scroll(() => {
-        if (this.oWebControl != null) {
-          this.oWebControl.JS_Resize(this.width, this.playHeight);
-          this.setWndCover();
-        }
-      });
-      // 标签关闭
-      $(window).unload(() => {
-        if (this.oWebControl != null) {
-          this.oWebControl.JS_HideWnd();   // 先让窗口隐藏，规避可能的插件窗口滞后于浏览器消失问题
-          this.oWebControl.JS_Disconnect().then(
-            () => {  // 断开与插件服务连接成功
-            },
-            () => {  // 断开与插件服务连接失败
-            }
-          );
-        }
-      });
-    },
-    watch: {
-      monitorDeviceNo: {
-        handler(newV, oldV) {
-          this.cameraIndexCode = newV;
-          if (newV && this.playMode === 0) {
-            this.previewVideo();
-          } else if (newV && this.playMode === 1) {
-            this.backVideo();
+      // 窗口事件绑定
+      $(window).bind({
+        resize: function () {
+          var $Restart = $("#restartDiv");
+          if ($Restart.length > 0) {
+            var oSize = getWindowSize();
+            $Restart.css({
+              width: oSize.width + "px",
+              height: oSize.height + "px"
+            });
           }
         }
-      }
+      });
+
+      //初始化日期时间
+      var szCurTime = dateFormat(new Date(), "yyyy-MM-dd");
+      $("#starttime").val(szCurTime + " 00:00:00");
+      $("#endtime").val(szCurTime + " 23:59:59");
     }
   }
 </script>
-
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  #videoPlayerBox
-    background-color #0D1F3A
-    .header
-      padding 10px 20px
-      background-color #142C50
-      position relative
-      .el-dialog__title
-        height 24px
-        text-align center
-        background-color #142C50
-        color #fff
-        font-size 14px
-        cursor pointer
-      .closeBtn
-        position absolute
-        top 10px
-        right 10px
-        padding 2px 4px
-        border 1px dotted #ccc
-        color #fff
-        font-size 18px
-        cursor pointer
-        &:hover
-          color #4BA2FF
-    .topbutton
-      height 26px
-      padding-top 6px
-      padding-left 14px
-      background-color #0D1F3A
-      cursor pointer
-      .topBtns
-        padding 0 12px 6px
-        border-bottom 1px solid #0D1F3A
-        color #fff
-      .activeBtn
-        color #4BA2FF
-        border-color #4BA2FF
-    #playBox
-      width 100%
-      height 360px
-      color red
+  @import '../../../static/css/demo.css';
 </style>
