@@ -15,7 +15,7 @@
     "animate.css": "3.5.2",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
-    "cesium": "^1.73.0",
+    "cesium": "^1.74.0",
     "echarts": "^3.5.1",
     "element-ui": "^2.3.9",
     "font-awesome": "^4.7.0",
