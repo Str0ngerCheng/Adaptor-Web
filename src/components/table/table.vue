@@ -137,7 +137,7 @@
               <i class='fa fa-area-chart' style="height: 12px;width: 12px"></i>
             </el-button>
 
-            <el-button
+            <
               size="small"
               type="danger"
               circle
