@@ -27,7 +27,8 @@ import uav from "../pages/platform/uav.vue"
 import phone from "../pages/platform/phone.vue"
 
 import basemap from "../components/amap/basemap.vue";
-import CesiumView from "../components/cesium/cesium.vue";
+import CesiumUav from "../components/cesium/cesiumUav.vue";
+import CesiumVehicle from "../components/cesium/cesiumVehicle.vue";
 
 // Routes
 const routes = [
@@ -61,7 +62,8 @@ const routes = [
       {path: '/platform/phone', component: phone},
 
       {path: '/map/2d', component: basemap},
-      {path: '/map/3d', component: CesiumView},
+      {path: '/map/3d/uav', component: CesiumUav},
+      {path: '/map/3d/vehicle', component: CesiumVehicle},
 
       {path: '/sys/menuList', component: menuList},
       {path: '/sys/roleList', component: role},

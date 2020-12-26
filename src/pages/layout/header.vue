@@ -1,7 +1,7 @@
 <template>
   <header class="main-header animated" :class="{closeLogo:sidebar.collapsed,mobileLogo:device.isMobile}">
     <a href="http://localhost:9000/" class="logo">
-      <span class="logo-lg"><img src="static/img/iot.png" style="width: 25px;height: 25px;vertical-align:sub" /><b style="padding-left: 10px">GSW Adaptor</b></span>
+      <span class="logo-lg"><img src="static/img/iot.png" style="width: 25px;height: 25px;vertical-align:sub" /><b style="padding-left: 25px">GSW Adaptor</b></span>
     </a>
     <nav class="navbar">
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"
