@@ -4,10 +4,23 @@
       <el-col :span="4">
         <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content">
+            <i class="fa fa-bell-o grid-con-icon" style="background: rgb(228, 108, 187)"></i>
+            <div class="grid-cont-right">
+              <div class="grid-num" style="color: rgb(228, 108, 187)">
+                <count-to :startVal='0' :endVal='7' :duration='2000' />
+              </div>
+              <div>平台数量</div>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="4">
+        <el-card shadow="hover" :body-style="{padding: '0px'}">
+          <div class="grid-content">
             <i class="fa fa-skyatlas grid-con-icon" style="background: rgb(45, 140, 240)"></i>
             <div class="grid-cont-right">
               <div class="grid-num" style="color: rgb(45, 140, 240)">
-                <count-to :startVal='0' :endVal='7' :duration='2000' />
+                <count-to :startVal='0' :endVal='10' :duration='2000' />
               </div>
               <div>接入协议数量</div>
             </div>
@@ -33,7 +46,7 @@
             <i class="fa fa-tablet grid-con-icon" style="background: rgb(154, 102, 228)"></i>
             <div class="grid-cont-right">
               <div class="grid-num" style="color: rgb(154, 102, 228)">
-                <count-to :startVal='0' :endVal='1000' :duration='2000' />
+                <count-to :startVal='0' :endVal='36' :duration='2000' />
               </div>
               <div>设备总量</div>
             </div>
@@ -46,7 +59,7 @@
             <i class="fa fa-check-circle grid-con-icon" style="background: rgb(100, 213, 114)"></i>
             <div class="grid-cont-right">
               <div class="grid-num" style="color: rgb(100, 213, 114)">
-                <count-to :startVal='0' :endVal='972' :duration='2000' />
+                <count-to :startVal='0' :endVal='33' :duration='2000' />
               </div>
               <div>正常运行设备</div>
             </div>
@@ -59,22 +72,9 @@
             <i class="fa fa-exclamation-triangle grid-con-icon" style="background: rgb(242, 94, 67)"></i>
             <div class="grid-cont-right">
               <div class="grid-num" style="color: rgb(242, 94, 67)">
-                <count-to :startVal='0' :endVal='28' :duration='2000' />
+                <count-to :startVal='0' :endVal='3' :duration='2000' />
               </div>
               <div>故障设备</div>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="4">
-        <el-card shadow="hover" :body-style="{padding: '0px'}">
-          <div class="grid-content">
-            <i class="fa fa-bell-o grid-con-icon" style="background: rgb(228, 108, 187)"></i>
-            <div class="grid-cont-right">
-              <div class="grid-num" style="color: rgb(228, 108, 187)">
-                <count-to :startVal='0' :endVal='51' :duration='2000' />
-              </div>
-              <div>系统消息</div>
             </div>
           </div>
         </el-card>
@@ -85,7 +85,9 @@
         <el-card shadow="hover" class="mgb20">
           <chart-pie style="height: 300px;" :value="pieData" text="协议对应传感器数量"></chart-pie>
         </el-card>
-        <el-card shadow="hover" style="height:252px;">
+      </el-col>
+      <el-col :span="16">
+        <el-card shadow="hover" style="height: 340px;">
           <div slot="header" class="clearfix" style="text-align: center">
             <span style="font-size: 18px;font-weight: bold">区域传感器数量占比</span>
           </div>豹澥实验场
@@ -93,39 +95,6 @@
           <el-progress :percentage="24.1" color="#f1e05a"></el-progress>硅田地下停车场
           <el-progress :percentage="13.7"></el-progress>武大实验场
           <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
-        </el-card>
-      </el-col>
-      <el-col :span="16">
-        <el-card shadow="hover" class="mgb20">
-          <chart-bar style="height: 300px;" :value="barData" text="各类型传感器数量"/>
-        </el-card>
-        <el-card shadow="hover" class="mgb20" style="height:252px;">
-          <div slot="header" class="clearfix" style="text-align: center">
-            <span style="font-size: 18px;font-weight: bold">故障列表</span>
-            <count-to  :startVal=asynStartVal :endVal=asynEndVal />
-            <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
-          </div>
-          <el-table :show-header="false" :data="todoList" style="width:100%;">
-            <el-table-column width="40">
-              <template slot-scope="scope">
-                <el-checkbox v-model="scope.row.status"></el-checkbox>
-              </template>
-            </el-table-column>
-            <el-table-column>
-              <template slot-scope="scope">
-                <div
-                  class="todo-item"
-                  :class="{'todo-item-del': scope.row.status}"
-                >{{scope.row.title}}</div>
-              </template>
-            </el-table-column>
-            <el-table-column width="60">
-              <template>
-                <i class="el-icon-edit"></i>
-                <i class="el-icon-delete"></i>
-              </template>
-            </el-table-column>
-          </el-table>
         </el-card>
       </el-col>
     </el-row>
@@ -147,20 +116,6 @@
         name: '',
         asynStartVal:0,
         asynEndVal: 100,
-        todoList: [
-          {
-            title: 'zigbee_01数据异常，校验未通过',
-            status: true
-          },
-          {
-            title: 'nb-iot_01设备异常，通信断开',
-            status: false
-          },
-          {
-            title: 'lora_02设备异常，原因不明',
-            status: false
-          }
-        ],
         pieData: [
           { value: 31, name: 'ModBus' },
           { value: 326, name: 'NB-IoT' },

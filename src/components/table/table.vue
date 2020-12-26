@@ -36,13 +36,13 @@
           width="50"
           align='center'>
         </el-table-column>
-        <el-table-column
+       <!-- <el-table-column
           label="传感器"
           align='center'>
           <template slot-scope="scope">
             <img :src='scope.row.avatar' style="height: 35px;vertical-align: middle;" alt="">
           </template>
-        </el-table-column>
+        </el-table-column>-->
         <el-table-column
           prop="name"
           label="名称"
@@ -114,11 +114,11 @@
              </el-button>-->
           </template>
         </el-table-column>
-        <el-table-column
+      <!--  <el-table-column
           prop="protocol_params"
           label="协议参数"
           align='center'>
-        </el-table-column>
+        </el-table-column>-->
         <el-table-column label="操作" width="200" align='center'>
           <template slot-scope="scope">
             <el-button

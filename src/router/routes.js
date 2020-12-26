@@ -26,6 +26,8 @@ import rfidNetwork from "../pages/platform/rfidNetwork.vue"
 import uav from "../pages/platform/uav.vue"
 import phone from "../pages/platform/phone.vue"
 
+import fiveG from "../pages/sensors/5G.vue"
+
 import basemap from "../components/amap/basemap.vue";
 import CesiumUav from "../components/cesium/cesiumUav.vue";
 import CesiumVehicle from "../components/cesium/cesiumVehicle.vue";
@@ -53,6 +55,7 @@ const routes = [
       {path: '/protocol/rfid', component: rfid},
       {path: '/protocol/modbus', component: modbus},
       {path: '/protocol/loRA', component: loRA},
+      {path: '/protocol/5G', component: fiveG},
 
       {path: '/platform/gcxj', component: gcxj},
       {path: '/platform/leadorRobot', component: leadorRobot},
@@ -62,8 +65,8 @@ const routes = [
       {path: '/platform/phone', component: phone},
 
       {path: '/map/2d', component: basemap},
-      {path: '/map/3d/uav', component: CesiumUav},
-      {path: '/map/3d/vehicle', component: CesiumVehicle},
+      {path: '/protocol/uav', component: CesiumUav},
+      {path: '/protocol/vehicle', component: CesiumVehicle},
 
       {path: '/sys/menuList', component: menuList},
       {path: '/sys/roleList', component: role},

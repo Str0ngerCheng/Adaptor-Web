@@ -24,101 +24,11 @@ export default {
     "type": 1,
     "code": 102,
     "timeLine": "1975051514",
-    "message": "元派目想铁难而应才院色种离。义两作期复铁节被制等头设。此能论装受我电局代算素业用我。",
-    "title": "除口方增常处装公会深此面",
+    "message": "",
+    "title": "GSW Adaptor",
     "createTime": "1192729032451",
     "senderName": "Smith",
     "senderPic": "http://dummyimage.com/100x100/d9f279/757575.png&text=S"
-  }, {
-    "id": "460000201611256678",
-    "type": 0,
-    "code": 108,
-    "timeLine": "1972022907",
-    "message": "门可太长消题四义人素分天习。",
-    "title": "车主精论状第算整京联科出报",
-    "createTime": "1019549821001",
-    "senderName": "Anderson",
-    "senderPic": "http://dummyimage.com/100x100/e779f2/757575.png&text=A"
-  }, {
-    "id": "21000019780808275X",
-    "type": 1,
-    "code": 105,
-    "timeLine": "1970031803",
-    "message": "指给西着林为计着布同细认产。",
-    "title": "正白要外高情总儿才必响",
-    "createTime": "503250769103",
-    "senderName": "Clark",
-    "senderPic": "http://dummyimage.com/100x100/79f2c4/757575.png&text=C"
-  }, {
-    "id": "540000197505267710",
-    "type": 1,
-    "code": 106,
-    "timeLine": "2010020800",
-    "message": "变没装调标矿劳土类角九至由。特引南素都则次采特分义管装设青工率新。海者快决角定标门段越美流东厂体。",
-    "title": "马争有战采圆还使层极口队理任目器万干",
-    "createTime": "1282562311030",
-    "senderName": "Anderson",
-    "senderPic": "http://dummyimage.com/100x100/f2a179/757575.png&text=A"
-  }, {
-    "id": "120000201607082136",
-    "type": 0,
-    "code": 110,
-    "timeLine": "1995042315",
-    "message": "议价进则族外代水白深白离系。质体们劳确作水今领议圆个中处每容江。",
-    "title": "看变易精最领得都",
-    "createTime": "557022187618",
-    "senderName": "Martinez",
-    "senderPic": "http://dummyimage.com/100x100/7d79f2/757575.png&text=M"
-  }, {
-    "id": "310000199103172213",
-    "type": 1,
-    "code": 107,
-    "timeLine": "1993081322",
-    "message": "和油得离接装小都空看来响资。部算调法土图毛重知参时图改用化龙观地。",
-    "title": "史运美很且应部想器发此精",
-    "createTime": "331067892810",
-    "senderName": "Hernandez",
-    "senderPic": "http://dummyimage.com/100x100/97f279/757575.png&text=H"
-  }, {
-    "id": "310000201408208918",
-    "type": 0,
-    "code": 107,
-    "timeLine": "1996071523",
-    "message": "影将度更调图界实交接外他度龙习。米战走加系区日委也总图日。",
-    "title": "高按我发史社就高水复周",
-    "createTime": "1115948146226",
-    "senderName": "Robinson",
-    "senderPic": "http://dummyimage.com/100x100/f279bb/757575.png&text=R"
-  }, {
-    "id": "500000200504263440",
-    "type": 0,
-    "code": 101,
-    "timeLine": "1972032318",
-    "message": "都八在取音特业划克天造求照般。",
-    "title": "整家水山又知整新便分现物精划放干",
-    "createTime": "1241409165029",
-    "senderName": "Clark",
-    "senderPic": "http://dummyimage.com/100x100/79def2/757575.png&text=C"
-  }, {
-    "id": "320000198908103896",
-    "type": 1,
-    "code": 105,
-    "timeLine": "2009010906",
-    "message": "当式名厂采物且计料三公切点应更民体。内反温干华点方上等或划消但名反到准。",
-    "title": "况别联东红后还由列级任法向",
-    "createTime": "138005376045",
-    "senderName": "Walker",
-    "senderPic": "http://dummyimage.com/100x100/f2e279/757575.png&text=W"
-  }, {
-    "id": "330000199709134661",
-    "type": 0,
-    "code": 102,
-    "timeLine": "2007031214",
-    "message": "都种形一必采海想元的调次位府团系。社界个向但所历亲器它争计积相所为记。适心称备叫近理或种使水算党须今划文。",
-    "title": "酸约况实改火间子直后约质影反",
-    "createTime": "434811164417",
-    "senderName": "Thompson",
-    "senderPic": "http://dummyimage.com/100x100/bf79f2/757575.png&text=T"
   }],
   roleList: [{
     "id": 26,
@@ -557,7 +467,7 @@ export default {
       "id": 201,
       "parentId": 2,
       "sort": 0,
-      "name": "LoPAN地面传感器网络",
+      "name": "LoPAN传感器网络",
       "href": "/protocol1",
       "icon": "fa fa-skyatlas fa-fw",
       "children": [{
@@ -593,7 +503,7 @@ export default {
       "id": 202,
       "parentId": 2,
       "sort": 0,
-      "name": "LpWA地面传感器网络",
+      "name": "LpWAN传感器网络",
       "href": "/protocol2",
       "icon": "fa fa-skyatlas fa-fw",
       "children": [{
@@ -637,7 +547,7 @@ export default {
         "parentId": 204,
         "sort": 0,
         "name": "MAVLink-轨迹",
-        "href": "/protocol/mavlink",
+        "href": "/protocol/vehicle",
         "icon": "fa fa-feed fa-fw",
         "children": [],
         "isShow": "1"
@@ -664,7 +574,7 @@ export default {
           "parentId": 205,
           "sort": 0,
           "name": "MAVLink-轨迹",
-          "href": "/protocol/mavlink",
+          "href": "/protocol/uav",
           "icon": "fa fa-feed fa-fw",
           "children": [],
           "isShow": "1"
@@ -699,39 +609,12 @@ export default {
       "id": 207,
       "parentId": 2,
       "sort": 0,
-      "name": "网络连接",
-      "href": "/protocol7",
-      "icon": "fa fa-feed fa-fw",
-      "children": [{
-        "id": 309,
-        "parentId": 207,
-        "sort": 0,
-        "name": "2/3/4G + WIFI",
-        "href": "/protocol/modbus",
-        "icon": "fa fa-feed fa-fw",
-        "children": [],
-        "isShow": "1"
-      },{
-        "id": 310,
-        "parentId": 207,
-        "sort": 0,
-        "name": "4/5G",
-        "href": "/protocol/modbus",
-        "icon": "fa fa-feed fa-fw",
-        "children": [],
-        "isShow": "1"
-      }],
-      "isShow": "1"
-    },{
-      "id": 208,
-      "parentId": 2,
-      "sort": 0,
       "name": "可穿戴平台",
       "href": "/protocol8",
       "icon": "fa fa-skyatlas fa-fw",
       "children": [{
         "id": 311,
-        "parentId": 208,
+        "parentId": 207,
         "sort": 0,
         "name": "BLE",
         "href": "/protocol/BLE",
@@ -740,7 +623,35 @@ export default {
         "isShow": "1"
       }],
       "isShow": "1"
-    }],
+    },
+      {
+        "id": 208,
+        "parentId": 2,
+        "sort": 0,
+        "name": "网络连接",
+        "href": "/protocol7",
+        "icon": "fa fa-feed fa-fw",
+        "children": [{
+          "id": 309,
+          "parentId": 208,
+          "sort": 0,
+          "name": "2/3/4G + WIFI",
+          "href": "/protocol/modbus",
+          "icon": "fa fa-feed fa-fw",
+          "children": [],
+          "isShow": "1"
+        },{
+          "id": 310,
+          "parentId": 208,
+          "sort": 0,
+          "name": "4/5G",
+          "href": "/protocol/5G",
+          "icon": "fa fa-feed fa-fw",
+          "children": [],
+          "isShow": "1"
+        }],
+        "isShow": "1"
+      },],
     "isShow": "1"
   }, {
     "id": 130,
@@ -757,33 +668,6 @@ export default {
       "href": "/map/2d",
       "icon": "fa fa-map fa-fw",
       "children": [],
-      "isShow": "1"
-    }, {
-      "id": 132,
-      "parentId": 130,
-      "sort": 0,
-      "name": "三维",
-      "href": "/map/3d",
-      "icon": "fa fa-globe fa-fw",
-      "children": [{
-        "id": 133,
-        "parentId": 130,
-        "sort": 0,
-        "name": "无人机",
-        "href": "/map/3d/uav",
-        "icon": "fa fa-globe fa-fw",
-        "children": [],
-        "isShow": "1"
-      },{
-        "id": 133,
-        "parentId": 130,
-        "sort": 0,
-        "name": "无人车",
-        "href": "/map/3d/vehicle",
-        "icon": "fa fa-globe fa-fw",
-        "children": [],
-        "isShow": "1"
-      }],
       "isShow": "1"
     }
     ],
