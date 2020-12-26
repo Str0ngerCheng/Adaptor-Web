@@ -5,15 +5,15 @@ export const LOGIN = CONTEXT + '/login';
 export const LOGOUT = CONTEXT + '/logout';
 export const CHANGE_PWD = CONTEXT + '/changePwd';
 
-export const SENSOR_LIST  = CONTEXT + '/sensor/list';
-export const ALL_SENSOR  = CONTEXT + '/sensor/allList';
+export const SENSOR_LIST = CONTEXT + '/sensor/list';
+export const ALL_SENSOR = CONTEXT + '/sensor/allList';
 export const SENSOR_ADD = CONTEXT + '/sensor/add';
 export const SENSOR_UPDATE = CONTEXT + '/sensor/update';
-export const SENSOR_DELETE  = CONTEXT + '/sensor/Delete';
-export const SENSOR_GET_BY_NAME  = CONTEXT + '/sensor/getSensorsByName';
-export const SENSOR_GET_BY_TYPE  = CONTEXT + '/sensor/getSensorsByType';
-export const SENSOR_HistoryData  = CONTEXT + '/sensor/getHistoryData';
-export const ObsProp_All_ObsPropName  = CONTEXT + '/obs_prop/getAllObsPropNames';
+export const SENSOR_DELETE = CONTEXT + '/sensor/Delete';
+export const SENSOR_GET_BY_NAME = CONTEXT + '/sensor/getSensorsByName';
+export const SENSOR_GET_BY_TYPE = CONTEXT + '/sensor/getSensorsByType';
+export const SENSOR_HistoryData = CONTEXT + '/sensor/getHistoryData';
+export const ObsProp_All_ObsPropName = CONTEXT + '/obs_prop/getAllObsPropNames';
 
 export const SYS_MENU_GET = CONTEXT + '/sys/menu/get';
 export const SYS_MENU_UPDATE = CONTEXT + '/sys/menu/update';
@@ -53,7 +53,8 @@ export const MSG_TOP_TEN = CONTEXT + '/messageList';
 export const TEST_DATA = CONTEXT + '/static/data/data.json';
 
 //WebSocket接口地址
-export const BASE_URL="ws://127.0.0.1:8081";
-export const SENSOR_WEBSOCKET_URL=BASE_URL+"/websocket";
-export const ROBOT_WEBSOCKET_URL=BASE_URL+"/robot";
+export const BASE_URL = "ws://127.0.0.1:8081";
+export const SENSOR_WEBSOCKET_URL = BASE_URL + "/websocket";
+export const RFID_WEBSOCKET_URL = BASE_URL + "/rfid";
 export const UAV_WEBSOCKET_URL=BASE_URL+"/uav";
+
