@@ -352,7 +352,7 @@
       websocketOnMessage(e) {
         this.realTimeData = {
           obsValue:JSON.parse(e.data).obsValue,
-          timestamp: new Date(JSON.parse(e.data).timestamp).toLocaleString()
+          // timestamp: new Date(JSON.parse(e.data).timestamp).toLocaleString()
           }
         console.log("realTimeData",this.realTimeData);
       },
