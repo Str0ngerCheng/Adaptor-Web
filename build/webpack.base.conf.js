@@ -10,8 +10,9 @@ function resolve (dir) {
 }
 
 module.exports = {
+  context: path.resolve(__dirname,'../'),
   entry: {
-    app: './src/main.js',
+    app: ['babel-polyfill','./src/main.js'],
     vendor: [ 'vue', 'vuex', 'vue-router', 'element-ui' ]  //第三方库和框架
   },
   output: {

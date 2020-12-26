@@ -1,13 +1,23 @@
-<template>
-    $END$
+<<template>
+  <my-table :protocol="protocol"/>
 </template>
 
 <script>
-    export default {
-        name: "lora.vue"
+  import myTable from "../../components/table/table.vue"
+  export default {
+    components: {
+      'my-table':myTable
+    },
+    data(){
+      return {
+        protocol:'loRA'
+      }
     }
+  }
 </script>
-
-<style scoped>
-
+<style>
+  .el-pagination {
+    float: right;
+    margin-top: 15px;
+  }
 </style>

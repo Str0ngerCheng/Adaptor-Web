@@ -17,7 +17,7 @@ import hk from "../pages/sensors/haikang.vue";
 import mavlink from "../pages/sensors/mavlink.vue";
 import rfid from "../pages/sensors/rfid.vue";
 import modbus from "../pages/sensors/modbus.vue";
-import mqtt from "../pages/sensors/mqtt.vue";
+import loRA from "../pages/sensors/loRA.vue";
 
 import gcxj from "../pages/platform/guangchangxiangji.vue"
 import leadorRobot from "../pages/platform/leadorRobot.vue"
@@ -51,7 +51,7 @@ const routes = [
       {path: '/protocol/mavlink', component: mavlink},
       {path: '/protocol/rfid', component: rfid},
       {path: '/protocol/modbus', component: modbus},
-      {path: '/protocol/mqtt', component: mqtt},
+      {path: '/protocol/loRA', component: loRA},
 
       {path: '/platform/gcxj', component: gcxj},
       {path: '/platform/leadorRobot', component: leadorRobot},
