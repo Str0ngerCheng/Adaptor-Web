@@ -716,7 +716,25 @@ export default {
       "name": "三维",
       "href": "/map/3d",
       "icon": "fa fa-globe fa-fw",
-      "children": [],
+      "children": [{
+        "id": 133,
+        "parentId": 130,
+        "sort": 0,
+        "name": "无人机",
+        "href": "/map/3d/uav",
+        "icon": "fa fa-globe fa-fw",
+        "children": [],
+        "isShow": "1"
+      },{
+        "id": 133,
+        "parentId": 130,
+        "sort": 0,
+        "name": "无人车",
+        "href": "/map/3d/vehicle",
+        "icon": "fa fa-globe fa-fw",
+        "children": [],
+        "isShow": "1"
+      }],
       "isShow": "1"
     }
     ],
