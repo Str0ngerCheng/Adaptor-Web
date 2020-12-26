@@ -1,22 +1,30 @@
 <template>
-  <my-table :protocol="protocol"/>
+  <imp-panel>
+    <div id="app">
+      <p>ble收到的数据：</p>
+      <p>{{this.msg}}</p>
+    </div>
+  </imp-panel>
 </template>
 
 <script>
-  import myTable from "../../components/table/table.vue"
   import * as api from "../../api"
   export default {
-    components: {
-      'my-table':myTable
-    },
     data(){
       return {
-        protocol:'BLE'
-      }
+        msg: '--',
+        websocket: {}
+      };
+    },
+    methods:{
+      websocketOnMessage(e) {
+        this.msg = e.data + new Date();
+        console.log("realTimeData",e);
+      },
     },
     mounted() {
       //页面初始化的时候持有一个websocket对象
-      this.websocket = new WebSocket(api.SENSOR_WEBSOCKET_URL);
+      this.websocket = new WebSocket(api.BLE_WEBSOCKET_URL);
       //页面刷新的时候需要关闭websocket连接
       window.addEventListener('beforeunload', e => {this.websocket.close();});
       this.websocket.onopen = () => {
@@ -30,11 +38,9 @@
       };
       //处理服务器发送过来的数据
       this.websocket.onmessage = this.websocketOnMessage;
-      //设置定时器
-      let _this = this;
-      this.timer = setInterval(function(){
-        _this.date = _this .handleDateFormat(new Date())
-      },1000);
+    },
+    beforeDestroy() {
+      this.websocket.close();//关闭页面时关闭连接
     }
   }
 </script>

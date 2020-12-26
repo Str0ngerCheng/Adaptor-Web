@@ -55,6 +55,6 @@ export const TEST_DATA = CONTEXT + '/static/data/data.json';
 //WebSocket接口地址
 export const BASE_URL = "ws://127.0.0.1:8081";
 export const SENSOR_WEBSOCKET_URL = BASE_URL + "/websocket";
-export const RFID_WEBSOCKET_URL = BASE_URL + "/rfid";
+export const BLE_WEBSOCKET_URL = BASE_URL + "/ble";
 export const UAV_WEBSOCKET_URL=BASE_URL+"/uav";
 
