@@ -17,7 +17,7 @@ import hk from "../pages/sensors/haikang.vue";
 import mavlink from "../pages/sensors/mavlink.vue";
 import rfid from "../pages/sensors/rfid.vue";
 import modbus from "../pages/sensors/modbus.vue";
-import mqtt from "../pages/sensors/mqtt.vue";
+import loRA from "../pages/sensors/loRA.vue";
 
 import gcxj from "../pages/platform/guangchangxiangji.vue"
 import leadorRobot from "../pages/platform/leadorRobot.vue"
@@ -27,7 +27,8 @@ import uav from "../pages/platform/uav.vue"
 import phone from "../pages/platform/phone.vue"
 
 import basemap from "../components/amap/basemap.vue";
-import CesiumView from "../components/cesium/cesium.vue";
+import CesiumUav from "../components/cesium/cesiumUav.vue";
+import CesiumVehicle from "../components/cesium/cesiumVehicle.vue";
 
 // Routes
 const routes = [
@@ -51,7 +52,7 @@ const routes = [
       {path: '/protocol/mavlink', component: mavlink},
       {path: '/protocol/rfid', component: rfid},
       {path: '/protocol/modbus', component: modbus},
-      {path: '/protocol/mqtt', component: mqtt},
+      {path: '/protocol/loRA', component: loRA},
 
       {path: '/platform/gcxj', component: gcxj},
       {path: '/platform/leadorRobot', component: leadorRobot},
@@ -61,7 +62,8 @@ const routes = [
       {path: '/platform/phone', component: phone},
 
       {path: '/map/2d', component: basemap},
-      {path: '/map/3d', component: CesiumView},
+      {path: '/map/3d/uav', component: CesiumUav},
+      {path: '/map/3d/vehicle', component: CesiumVehicle},
 
       {path: '/sys/menuList', component: menuList},
       {path: '/sys/roleList', component: role},

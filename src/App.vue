@@ -28,6 +28,7 @@
   import {mapGetters, mapActions,mapMutations} from 'vuex'
   import types from "./store/mutation-types"
   import 'animate.css'
+  import "babel-polyfill"
 
   export default {
     name: 'app',

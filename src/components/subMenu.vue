@@ -24,6 +24,6 @@
 </script>
 <style>
   .el-menu .fa {
-    margin-right: 10px;
+    margin-right: 5px;
   }
 </style>

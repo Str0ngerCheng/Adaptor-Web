@@ -169,6 +169,7 @@
 
   .sidebar{
     min-height: 450px;
+    width: auto;
   }
 
 
