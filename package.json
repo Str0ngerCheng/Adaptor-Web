@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "animate.css": "3.5.2",
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "cesium": "^1.74.0",
     "echarts": "^3.5.1",
     "element-ui": "^2.3.9",
